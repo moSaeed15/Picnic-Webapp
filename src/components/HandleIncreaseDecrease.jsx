@@ -1,4 +1,3 @@
-import { floor } from 'mathjs';
 import { useState } from 'react';
 
 const HandleIncreaseDecrease = ({ text }) => {
