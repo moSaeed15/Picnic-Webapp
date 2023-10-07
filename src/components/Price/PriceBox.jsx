@@ -9,7 +9,6 @@ const PriceBox = ({ pricingList, setPricingList }) => {
     one_week: 0,
     one_month: 0,
   });
-  console.log(priceList);
 
   const [priceListSelected, setPriceListSelected] = useState({
     one_day: false,

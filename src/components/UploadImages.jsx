@@ -73,6 +73,7 @@ const UploadImages = ({ token, unitID }) => {
       for (let i = 0; i < photos.length; i++) {
         const formData = new FormData();
         formData.append(`file`, photos[i]);
+
         const uploadImage = await fetch(
           `${
             import.meta.env.VITE_BASE_API_PATH
@@ -101,12 +102,21 @@ const UploadImages = ({ token, unitID }) => {
           },
         }
       );
-      if (publishUnit.status === 200 && err === '') {
+      if (publishUnit.status === 200 && error === '') {
         setMsg(() => {
           return {
             description: 'Unit Published and pending apporval',
             title: 'Unit Published',
             status: 'success',
+          };
+        });
+      } else {
+        setMsg(() => {
+          return {
+            description:
+              'Images exceeded 10mbs upload less images or change size',
+            title: 'Images exceeded 10mbs ',
+            status: 'error',
           };
         });
       }

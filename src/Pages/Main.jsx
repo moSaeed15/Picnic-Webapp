@@ -33,6 +33,13 @@ const Main = () => {
   const [pricingList, setPricingList] = useState([]);
   const [msg, setMsg] = useState({ title: '', description: '', status: '' });
   const toast = useToast();
+  function handleErrorMessage(title, description, status) {
+    setMsg(() => ({
+      title: title,
+      description: description,
+      status: status,
+    }));
+  }
 
   function showToast() {
     toast({
@@ -51,29 +58,55 @@ const Main = () => {
 
   const cookies = new Cookies();
   const token = cookies.get('token');
+  const HandleRequest = async data => {
+    try {
+      const loginData = await fetch(
+        `${import.meta.env.VITE_BASE_API_PATH}/api/v1/owner/units/create`,
+        {
+          method: 'POST',
+          body: JSON.stringify(data),
+
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const response = await loginData.json();
+      setUnitID(response._id);
+
+      if (loginData.status === 200) {
+        handleErrorMessage(
+          'Draft Created Succesfuly',
+          'Draft Created',
+          'success'
+        );
+      }
+    } catch (err) {
+      console.log(err);
+      handleErrorMessage(
+        'Draft Creation Failed Check Inputs',
+        'Draft Creation Failed',
+        'error'
+      );
+    }
+  };
+
   async function submitUnit() {
     console.log(location);
     let err = '';
     if (pricingList.length === 0) {
-      setMsg(() => {
-        return {
-          description: 'Enter at least one price',
-          title: 'Prices Empty',
-          status: 'error',
-        };
-      });
+      handleErrorMessage('Prices Empty', 'Enter at least one price', 'error');
       err = 'yes';
     }
-    if (propetyName === '') {
-      setMsg(() => {
-        return {
-          description: 'Property Name field can not be empty',
-          title: 'Property Name field Empty',
-          status: 'error',
-        };
-      });
-      err = 'yes';
-    }
+    if (propetyName === '')
+      handleErrorMessage(
+        'Property Name field Empty',
+        'Property Name field cannot be empty',
+        'error'
+      );
+
     if (err === '') {
       const data = {
         name: propetyName,
@@ -93,32 +126,7 @@ const Main = () => {
         amenities: amenities,
         pricing_list: pricingList,
       };
-      const loginData = await fetch(
-        `${import.meta.env.VITE_BASE_API_PATH}/api/v1/owner/units/create
-      `,
-        {
-          method: 'POST',
-          body: JSON.stringify(data),
-
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      const response = await loginData.json();
-      setUnitID(response._id);
-
-      if (loginData.status === 200) {
-        setMsg(() => {
-          return {
-            description: 'Draft Created Succesfuly',
-            title: 'Draft Created',
-            status: 'success',
-          };
-        });
-      }
+      HandleRequest(data);
     }
   }
   return (
