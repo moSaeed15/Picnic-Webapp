@@ -1,4 +1,5 @@
-import { Outlet, useLocation } from 'react-router-dom';
+import { Button } from '@chakra-ui/react';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 
 // import logo from './logo.png';
 const Navbar = () => {
@@ -24,6 +25,9 @@ const Navbar = () => {
             className="bg-lightPrimaryColor p-2 rounded-md cursor-pointer"
           />
           <span>John</span>
+          <Link to="/">
+            <Button colorScheme="teal">Log Out</Button>
+          </Link>
         </div>
       </nav>
       <Outlet />

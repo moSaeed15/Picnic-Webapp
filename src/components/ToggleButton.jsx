@@ -1,11 +1,50 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-const ToggleButton = () => {
+const ToggleButton = ({
+  setAmenties,
+  amentiesName,
+  setPricingList,
+  priceName,
+  priceList,
+  setPriceListSelected,
+}) => {
   const [isChecked, setIsChecked] = useState(false);
+  const variableName = String(amentiesName);
+  useEffect(() => {
+    if (priceName) {
+      setPriceListSelected(prev => {
+        return { ...prev, [priceName]: isChecked };
+      });
+
+      if (isChecked) {
+        // Handle logic when isChecked is true, e.g., add item to priceList
+        setPricingList(prev => [
+          ...prev,
+          {
+            price: priceList[priceName],
+            currency: 'kwd',
+            pricing_type: priceName,
+          },
+        ]);
+      } else {
+        // Handle logic when isChecked is false, e.g., remove item from priceList
+        // Modify the logic based on your requirements
+      }
+    }
+  }, [isChecked]);
+
   const toggleCheckbox = () => {
-    setIsChecked(!isChecked);
+    if (amentiesName) {
+      setAmenties(prev => {
+        console.log(prev);
+        return { ...prev, [variableName]: !isChecked };
+      });
+    }
+
+    setIsChecked(prev => !prev);
     console.log(isChecked);
   };
+
   return (
     <div className="mx-2 bg-white flex items-center  justify-center">
       <input type="checkbox" className="hidden" />

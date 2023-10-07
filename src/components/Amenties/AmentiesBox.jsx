@@ -43,10 +43,20 @@ const AmentiesBox = ({ setAmenties }) => {
           )}
         </div>
 
-        <AmentiesAvailable text="Driver Room" borderB={'border-b'} />
+        <AmentiesAvailable
+          amentiesName={'driver_room'}
+          setAmenties={setAmenties}
+          text="Driver Room"
+          borderB={'border-b'}
+        />
         <HandleIncreaseDecrease text={'The Number of Floors'} />
 
-        <AmentiesAvailable text="Garden" borderB={'border-b'} />
+        <AmentiesAvailable
+          setAmenties={setAmenties}
+          amentiesName={'garden'}
+          text="Garden"
+          borderB={'border-b'}
+        />
 
         <div className="grid grid-cols-1 border-b px-5 pt-5  gap-y-5  border-r border-borderTable  pb-4 ">
           <span className="text-base text-primaryColor font-medium">
@@ -68,10 +78,17 @@ const AmentiesBox = ({ setAmenties }) => {
           </div>
         </div>
 
-        <AmentiesAvailable text="Elevator" borderB={'border-b'} />
+        <AmentiesAvailable
+          amentiesName={'elevator'}
+          setAmenties={setAmenties}
+          text="Elevator"
+          borderB={'border-b'}
+        />
         <HandleIncreaseDecrease text={'The Number of Living Rooms'} />
 
         <AmentiesAvailable
+          amentiesName={'elderly_disabled_suitable'}
+          setAmenties={setAmenties}
           text="Suitable for Disabled People and The Elderly"
           borderB={'border-b'}
         />
@@ -113,17 +130,23 @@ const AmentiesBox = ({ setAmenties }) => {
           </div>
         </div>
         <AmentiesAvailable
+          amentiesName={'kitchen'}
           setAmenties={setAmenties}
           text="Available Kitchen Utensils"
           borderB={'border-b'}
         />
         <AmentiesAvailable
+          amentiesName={'nanny_room'}
           setAmenties={setAmenties}
           text="Nany Room"
           border={'border-r'}
           margin={true}
         />
-        <AmentiesAvailable setAmenties={setAmenties} text="Available Wifi" />
+        <AmentiesAvailable
+          amentiesName={'wifi'}
+          setAmenties={setAmenties}
+          text="Available Wifi"
+        />
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 // import Cookies from 'universal-cookie';
 
-import { useFormik } from 'formik';
+import { replace, useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
@@ -37,7 +37,9 @@ const Login = () => {
       const cookies = new Cookies();
       cookies.set('token', response.auth_token);
       cookies.set('refreshtoken', response.refresh_token);
-      navigate(`/${decoded.user.role === 'owner' ? 'chalet' : 'admin'}`);
+      navigate(`/${decoded.user.role === 'owner' ? 'chalet' : 'admin'}`, {
+        replace: true,
+      });
     },
   });
   const touchedPassword = formik.touched.password && formik.errors.password;

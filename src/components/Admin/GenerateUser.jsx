@@ -3,11 +3,13 @@ import * as Yup from 'yup';
 import SliderC from './SliderC';
 import Cookies from 'universal-cookie';
 import { useState } from 'react';
+import { FormErrorMessage, Text } from '@chakra-ui/react';
 
 const GenerateUser = () => {
   const [monthValue, setMonthValue] = useState('monthly');
+  const [success, setSuccess] = useState('');
+  const [error, setError] = useState('');
 
-  console.log(monthValue);
   const formik = useFormik({
     initialValues: {
       userName: '',
@@ -58,6 +60,12 @@ const GenerateUser = () => {
       );
 
       const response = await loginData.json();
+      console.log(loginData, response);
+      if (loginData.status === 200) {
+        setSuccess('Account Creation Successful');
+      } else {
+        setError('Account Creation Unsuccessful');
+      }
     },
   });
 
@@ -113,7 +121,8 @@ const GenerateUser = () => {
       </form>
       {/* slider */}
       <SliderC monthValue={monthValue} setMonthValue={setMonthValue} />
-
+      {success && <Text>{success}</Text>}
+      {error && <FormErrorMessage>{error}</FormErrorMessage>}
       <button
         type="submit"
         onClick={formik.handleSubmit}

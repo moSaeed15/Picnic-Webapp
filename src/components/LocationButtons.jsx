@@ -1,10 +1,11 @@
 import { useState } from 'react';
 
-const LocationButtons = () => {
+const LocationButtons = ({ location, setLocation }) => {
   const [selectedButton, setSelectedButton] = useState('Al Khiran');
 
   const handleButtonClick = buttonText => {
     setSelectedButton(buttonText);
+    setLocation(buttonText);
   };
 
   return (

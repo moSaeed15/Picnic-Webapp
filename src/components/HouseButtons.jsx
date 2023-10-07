@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-const HouseButtons = () => {
+const HouseButtons = setType => {
   const location = useLocation();
 
   const [selectedHouse, setSelectedHouse] = useState(
@@ -10,7 +10,9 @@ const HouseButtons = () => {
 
   const handleHouseClick = path => {
     setSelectedHouse(path);
+    setType(path);
   };
+
   return (
     <div className="px-5">
       <label className="text-darkBlue text-base font-medium ml-1 mb-2  ">
