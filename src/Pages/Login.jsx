@@ -4,13 +4,14 @@ import { replace, useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
-import { useToast } from '@chakra-ui/react';
+import { Button, InputRightElement, useToast } from '@chakra-ui/react';
 
 import jwt_decode from 'jwt-decode';
 import { useEffect, useState } from 'react';
 
 const Login = () => {
-  // const [error, setError] = useState('');
+  const [show, setShow] = useState(false);
+  const handleClick = () => setShow(!show);
   const [msg, setMsg] = useState({ title: '', description: '', status: '' });
 
   const toast = useToast();
@@ -60,6 +61,7 @@ const Login = () => {
         sessionStorage.setItem(
           'username',
           JSON.stringify({
+            id: decoded.user.id,
             username: decoded.user.username,
             role: decoded.user.role,
           })
@@ -115,17 +117,30 @@ const Login = () => {
             )}
           </div>
           <div className="mt-3 mb-5 flex gap-2 flex-col ">
-            <label className="font-normal ">Password</label>
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              onChange={formik.handleChange}
-              value={formik.values.password}
-              autoComplete="on"
-              onBlur={formik.handleBlur}
-              className="border rounded-md px-3 py-2 focus:outline-primaryColor text-base"
-            />
+            <label className="font-normal relative flex flex-col">
+              Password
+              <input
+                type={show ? 'text' : 'password'}
+                name="password"
+                placeholder="Password"
+                onChange={formik.handleChange}
+                value={formik.values.password}
+                autoComplete="on"
+                onBlur={formik.handleBlur}
+                className="border rounded-md px-3 py-2 focus:outline-primaryColor text-base"
+              />{' '}
+              <Button
+                h="1.75rem"
+                size="sm"
+                onClick={handleClick}
+                position="absolute"
+                right="5px"
+                top="31px"
+                colorScheme="teal"
+              >
+                {show ? 'Hide' : 'Show'}
+              </Button>
+            </label>
             {touchedPassword && (
               <span className="text-red-600">{formik.errors.password}</span>
             )}

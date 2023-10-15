@@ -9,18 +9,20 @@ import {
   Divider,
   Button,
 } from '@chakra-ui/react';
-import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Cookies from 'universal-cookie';
 
-const Notifications = () => {
+const OwnerNotifications = () => {
   const cookies = new Cookies();
   const token = cookies.get('token');
-  const [units, setUnits] = useState();
-  const location = useLocation();
+  const [ownerUnits, SetOwnerUnits] = useState();
+  const { id } = JSON.parse(sessionStorage.getItem('username'));
+
   const getData = async () => {
-    const unapprovedUnits = await fetch(
-      `${import.meta.env.VITE_BASE_API_PATH}/api/v1/admin/units/approval`,
+    const response = await fetch(
+      `${
+        import.meta.env.VITE_BASE_API_PATH
+      }/api/v1/owner/units/all?owner_id=${id}&page=1&limit=10`,
       {
         headers: {
           'Content-Type': 'application/json',
@@ -28,14 +30,14 @@ const Notifications = () => {
         },
       }
     );
-    const unapprovedUnitsData = await unapprovedUnits.json();
+    const { data } = await response.json();
 
-    setUnits(unapprovedUnitsData.data);
+    SetOwnerUnits(data);
   };
 
   useEffect(() => {
     getData();
-  }, [location.pathname]);
+  }, []);
   return (
     <Menu colorScheme="teal">
       <MenuButton
@@ -69,15 +71,15 @@ const Notifications = () => {
           maxH="300px"
           overflowY="scroll"
         >
-          {units &&
-            units.map((unit, i) => {
+          {ownerUnits &&
+            ownerUnits.map((unit, i) => {
               return (
                 <div key={i}>
                   <Flex display="flex" gap="50px">
                     <Box display="flex" flexDir="column" gap="20px">
                       <Text w="170px" textAlign="center">
-                        {unit && units[0].owner.contact.name} has requested to
-                        add a property
+                        {unit && ownerUnits[0].owner.contact.name} has requested
+                        to add a property
                       </Text>
                       <Link to="/placeholder" state={unit}>
                         <Text
@@ -102,4 +104,4 @@ const Notifications = () => {
   );
 };
 
-export default Notifications;
+export default OwnerNotifications;

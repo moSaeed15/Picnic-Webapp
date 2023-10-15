@@ -2,6 +2,7 @@ import { Link, Outlet, useLocation } from 'react-router-dom';
 import LanguageToggle from './LanguageToggle';
 import Notifications from './Notifications';
 import { Button } from '@chakra-ui/react';
+import OwnerNotifications from './OwnerNotifications';
 
 // import logo from './logo.png';
 
@@ -25,16 +26,7 @@ const Navbar = ({ setLanguage }) => {
         />
         <div className="flex gap-10 items-center">
           <LanguageToggle setLanguage={setLanguage} />
-          {role === 'admin' ? (
-            <Notifications />
-          ) : (
-            <img
-              src="/bell.svg"
-              alt="Notification Icon"
-              loading="lazy"
-              className="bg-lightPrimaryColor p-2 rounded-md cursor-pointer"
-            />
-          )}
+          {role === 'admin' ? <Notifications /> : <OwnerNotifications />}
 
           <span>{username}</span>
           <Link to="/">
