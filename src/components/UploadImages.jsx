@@ -16,8 +16,9 @@ const UploadImages = ({ token, unitID, disabled }) => {
   const gallery = location.state?.gallery;
 
   const [images, setImages] = useState([]);
-  const [msg, setMsg] = useState({ title: '', description: '', status: '' });
   const [photos, setPhotos] = useState();
+  const [msg, setMsg] = useState({ title: '', description: '', status: '' });
+
   const toast = useToast();
 
   function showToast() {

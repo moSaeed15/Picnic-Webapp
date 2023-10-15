@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import ChaletItem from '../ChaletItem';
 import Cookies from 'universal-cookie';
-import { json } from 'react-router-dom';
 
-const ChaletData = ({ title, setUnApprovedUnits }) => {
+const ChaletData = ({ title }) => {
   const [chaletData, setChaletData] = useState();
   const [farmData, setFarmData] = useState();
   const [houseData, setHouseData] = useState();
@@ -23,21 +22,8 @@ const ChaletData = ({ title, setUnApprovedUnits }) => {
       }
     );
 
-    const unapprovedUnits = await fetch(
-      `${import.meta.env.VITE_BASE_API_PATH}/api/v1/admin/units/approval`,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    const unapprovedUnitsData = await unapprovedUnits.json();
-
     const data = await response.json();
-    console.log(data);
-    console.log(unapprovedUnitsData);
-    setUnApprovedUnits(unapprovedUnitsData.data);
+
     // setFarmData(data.data.filter(item => item.type === 'farm'));
     // setHouseData(data.data.filter(item => item.type === 'rest_house'));
     // setChaletData(data.data.filter(item => item.type === 'chalet'));

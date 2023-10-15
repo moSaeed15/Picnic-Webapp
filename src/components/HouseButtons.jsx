@@ -1,9 +1,7 @@
 import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-const HouseButtons = ({ setType, disabled }) => {
-  const location = useLocation();
-
+const HouseButtons = ({ setType, disabled, type }) => {
   const [selectedHouse, setSelectedHouse] = useState(
     location.pathname.slice(1)
   );
@@ -57,35 +55,29 @@ const HouseButtons = ({ setType, disabled }) => {
       ) : (
         <div className="">
           <Link
+            onClick={e => e.preventDefault()}
             className={`border-borderButton border-r py-2  bg-tertiaryGrey text-textGrey px-20 rounded-l-full font-medium text-xs ${
               location.pathname === '/chalet' &&
               '[&&]:bg-primaryColor  text-white'
-            } ${
-              location.state.type === 'chalet' &&
-              '[&&&]:bg-primaryColor  text-white'
-            }`}
+            } ${type === 'chalet' && '[&&&]:bg-primaryColor  text-white'}`}
           >
             Chalet
           </Link>
           <Link
+            onClick={e => e.preventDefault()}
             className={`border-borderButton border-r py-2  bg-tertiaryGrey text-textGrey  px-20  font-medium text-xs ${
               location.pathname === '/farm' &&
               '[&&]:bg-primaryColor  text-white'
-            } ${
-              location.state.type === 'farm' &&
-              '[&&&]:bg-primaryColor  text-white'
-            }`}
+            } ${type === 'farm' && '[&&&]:bg-primaryColor  text-white'}`}
           >
             Farms
           </Link>
           <Link
+            onClick={e => e.preventDefault()}
             className={`border-borderButton py-2  bg-tertiaryGrey text-textGrey  px-20 rounded-r-full font-medium text-xs ${
               location.pathname === '/house' &&
               '[&&]:bg-primaryColor  text-white'
-            } ${
-              location.state.type === 'rest_house' &&
-              '[&&&]:bg-primaryColor  text-white'
-            }`}
+            } ${type === 'rest_house' && '[&&&]:bg-primaryColor  text-white'}`}
           >
             Rest Houses
           </Link>

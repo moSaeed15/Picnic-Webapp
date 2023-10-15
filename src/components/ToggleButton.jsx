@@ -79,8 +79,7 @@ before:w-4 before:h-4 before:rounded-full before:m-1 before:duration-200 ${
           ></label>
         </div>
       );
-    }
-    if (disabled && amenties) {
+    } else {
       return (
         <div className="mx-2 bg-white flex items-center  justify-center">
           <input type="checkbox" className="hidden" />

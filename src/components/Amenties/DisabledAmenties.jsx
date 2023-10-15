@@ -6,15 +6,14 @@ import { useLocation } from 'react-router-dom';
 import HandleIncreaseDecrease from '../HandleIncreaseDecrease';
 
 const DisabledAmenties = ({ setAmenties, disabled }) => {
-  const location = useLocation();
-  console.log(location.state.amenities);
+  const { type, amenities } = JSON.parse(localStorage.getItem('unit'));
+  console.log();
   const selectedOption =
-    location.state.amenities?.num_public_pools === 1
+    amenities?.num_public_pools === 1
       ? 'Public'
-      : location.state.amenities?.num_private_pools === 1
+      : amenities?.num_private_pools === 1
       ? 'Private'
-      : location.state.amenities?.num_public_pools === 1 &&
-        location.state.amenities?.num_private_pools === 1
+      : amenities?.num_public_pools === 1 && amenities?.num_private_pools === 1
       ? 'Both'
       : '';
 
@@ -33,17 +32,14 @@ const DisabledAmenties = ({ setAmenties, disabled }) => {
 
             <span> Second Class</span>
           </div>
-          {location.state.type === 'chalet' && (
+          {type === 'chalet' && (
             <span className="text-primaryColor font-medium">Nearby Sea?</span>
           )}
 
-          {location.state.type === 'chalet' && (
+          {type === 'chalet' && (
             <div className="flex items-center mr-[3.35rem] text-xs mb-5  font-medium  justify-self-end ">
               <span>No</span>
-              <ToggleButton
-                disabled={disabled}
-                amenties={location.state.amenities}
-              />
+              <ToggleButton disabled={disabled} amenties={amenities} />
               <span>Yes</span>
             </div>
           )}
@@ -51,7 +47,7 @@ const DisabledAmenties = ({ setAmenties, disabled }) => {
 
         <AmentiesAvailable
           disabled={disabled}
-          amenties={location.state.amenities}
+          amenties={amenities}
           amentiesName={'driver_room'}
           setAmenties={setAmenties}
           text="Driver Room"
@@ -61,7 +57,7 @@ const DisabledAmenties = ({ setAmenties, disabled }) => {
 
         <AmentiesAvailable
           disabled={disabled}
-          amenties={location.state.amenities}
+          amenties={amenities}
           setAmenties={setAmenties}
           amentiesName={'garden'}
           text="Garden"
@@ -75,25 +71,28 @@ const DisabledAmenties = ({ setAmenties, disabled }) => {
           <div className="flex gap-4 text-sm font-medium">
             <div className="">
               <input
+                readOnly
                 type="checkbox"
                 className="mr-[7px]"
-                checked={location.state.amenities.num_master_bedrooms}
+                checked={amenities.num_master_bedrooms}
               />
               <label htmlFor="">Master</label>
             </div>
             <div className="">
               <input
+                readOnly
                 type="checkbox"
                 className="mr-[7px]"
-                checked={location.state.amenities.num_single_bedrooms}
+                checked={amenities.num_single_bedrooms}
               />
               <label htmlFor="">Single Room</label>
             </div>
             <div>
               <input
+                readOnly
                 type="checkbox"
                 className="mr-[7px]"
-                checked={location.state.amenities.num_bathrooms}
+                checked={amenities.num_bathrooms}
               />
               <label htmlFor="">Bathroom</label>
             </div>
@@ -102,7 +101,7 @@ const DisabledAmenties = ({ setAmenties, disabled }) => {
 
         <AmentiesAvailable
           disabled={disabled}
-          amenties={location.state.amenities}
+          amenties={amenities}
           amentiesName={'elevator'}
           setAmenties={setAmenties}
           text="Elevator"
@@ -112,7 +111,7 @@ const DisabledAmenties = ({ setAmenties, disabled }) => {
 
         <AmentiesAvailable
           disabled={disabled}
-          amenties={location.state.amenities}
+          amenties={amenities}
           amentiesName={'elderly_disabled_suitable'}
           setAmenties={setAmenties}
           text="Suitable for Disabled People and The Elderly"
@@ -125,6 +124,7 @@ const DisabledAmenties = ({ setAmenties, disabled }) => {
           <div className="flex gap-4 text-sm font-medium">
             <div className="">
               <input
+                readOnly
                 type="checkbox"
                 className="mr-[7px]"
                 value="Private"
@@ -134,6 +134,7 @@ const DisabledAmenties = ({ setAmenties, disabled }) => {
             </div>
             <div className="">
               <input
+                readOnly
                 type="checkbox"
                 className="mr-[7px]"
                 value="Public"
@@ -143,6 +144,7 @@ const DisabledAmenties = ({ setAmenties, disabled }) => {
             </div>
             <div>
               <input
+                readOnly
                 type="checkbox"
                 className="mr-[7px]"
                 value="Both"
@@ -154,7 +156,7 @@ const DisabledAmenties = ({ setAmenties, disabled }) => {
         </div>
         <AmentiesAvailable
           disabled={disabled}
-          amenties={location.state.amenities}
+          amenties={amenities}
           amentiesName={'kitchen'}
           setAmenties={setAmenties}
           text="Available Kitchen Utensils"
@@ -162,7 +164,7 @@ const DisabledAmenties = ({ setAmenties, disabled }) => {
         />
         <AmentiesAvailable
           disabled={disabled}
-          amenties={location.state.amenities}
+          amenties={amenities}
           amentiesName={'nanny_room'}
           setAmenties={setAmenties}
           text="Nany Room"
@@ -171,7 +173,7 @@ const DisabledAmenties = ({ setAmenties, disabled }) => {
         />
         <AmentiesAvailable
           disabled={disabled}
-          amenties={location.state.amenities}
+          amenties={amenities}
           amentiesName={'wifi'}
           setAmenties={setAmenties}
           text="Available Wifi"

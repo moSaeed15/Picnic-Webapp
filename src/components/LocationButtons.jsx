@@ -1,9 +1,7 @@
 import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
 
-const LocationButtons = ({ location, setLocation, disabled }) => {
+const LocationButtons = ({ location, setLocation, disabled, address }) => {
   const [selectedButton, setSelectedButton] = useState('Al Khiran');
-  const { state } = useLocation();
 
   const handleButtonClick = buttonText => {
     setSelectedButton(buttonText);
@@ -64,30 +62,21 @@ const LocationButtons = ({ location, setLocation, disabled }) => {
               !disabled &&
               selectedButton === 'Al Khiran' &&
               '[&]:bg-primaryColor text-white'
-            } ${
-              state.location.address[0].name_l1 === 'Al Khiran' &&
-              '[&]:bg-primaryColor text-white'
-            } `}
+            } ${address === 'Al Khiran' && '[&]:bg-primaryColor text-white'} `}
           >
             Al Khiran
           </button>
           <button
             className={`py-2 px-4 bg-tertiaryGrey border-borderButton border-r text-textGrey font-medium text-xs ${
               selectedButton === 'Bnaider' && '[&]:bg-primaryColor  text-white '
-            } ${
-              state.location.address[0].name_l1 === 'Bnaider' &&
-              '[&]:bg-primaryColor text-white'
-            } `}
+            } ${address === 'Bnaider' && '[&]:bg-primaryColor text-white'} `}
           >
             Bnaider
           </button>
           <button
             className={`py-2 text-textGrey font-medium px-4 border-borderButton border-r bg-tertiaryGrey text-xs ${
               selectedButton === 'Alsubiy' && '[&]:bg-primaryColor  text-white '
-            }  ${
-              state.location.address[0].name_l1 === 'Alsubiy' &&
-              '[&]:bg-primaryColor text-white'
-            } `}
+            }  ${address === 'Alsubiy' && '[&]:bg-primaryColor text-white'} `}
           >
             Alsubiy
           </button>
@@ -96,7 +85,7 @@ const LocationButtons = ({ location, setLocation, disabled }) => {
               selectedButton === 'Sabah Alahmad Sea City' &&
               '[&]:bg-primaryColor  text-white '
             }  ${
-              state.location.address[0].name_l1 === 'Sabah Alahmad Sea City' &&
+              address === 'Sabah Alahmad Sea City' &&
               '[&]:bg-primaryColor text-white'
             } `}
           >
@@ -105,10 +94,7 @@ const LocationButtons = ({ location, setLocation, disabled }) => {
           <button
             className={`py-2 text-textGrey font-medium px-4  rounded-r-full bg-tertiaryGrey text-xs ${
               selectedButton === 'Other' && '[&]:bg-primaryColor  text-white '
-            }  ${
-              state.location.address[0].name_l1 === 'Other' &&
-              '[&]:bg-primaryColor text-white'
-            } `}
+            }  ${address === 'Other' && '[&]:bg-primaryColor text-white'} `}
           >
             Other
           </button>

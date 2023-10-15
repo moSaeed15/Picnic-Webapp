@@ -7,7 +7,6 @@ import { useState } from 'react';
 import PlaceHolder from './Pages/PlaceHolder';
 function App() {
   const [language, setLanguage] = useState();
-  const [unApprovedUnits, setUnApprovedUnits] = useState();
 
   return (
     <div
@@ -17,26 +16,11 @@ function App() {
     >
       <Routes>
         <Route index element={<Login />} />
-        <Route
-          element={
-            <Navbar
-              unApprovedUnits={unApprovedUnits}
-              setLanguage={setLanguage}
-            />
-          }
-        >
+        <Route element={<Navbar setLanguage={setLanguage} />}>
           <Route path="/chalet" element={<Main language={language} />} />
           <Route path="/farm" element={<Main language={language} />} />
           <Route path="/house" element={<Main language={language} />} />
-          <Route
-            path="/admin"
-            element={
-              <Admin
-                language={language}
-                setUnApprovedUnits={setUnApprovedUnits}
-              />
-            }
-          />
+          <Route path="/admin" element={<Admin language={language} />} />
           <Route path="/placeholder" element={<PlaceHolder />} />
         </Route>
       </Routes>

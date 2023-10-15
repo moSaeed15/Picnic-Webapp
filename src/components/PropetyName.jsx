@@ -1,8 +1,6 @@
 import { useLocation } from 'react-router-dom';
 
-const PropetyName = ({ setPropetyName, propetyName, disabled }) => {
-  const location = useLocation();
-
+const PropetyName = ({ setPropetyName, propetyName, disabled, name }) => {
   const handleInputChange = event => {
     const { value } = event.target;
     setPropetyName(value);
@@ -16,7 +14,7 @@ const PropetyName = ({ setPropetyName, propetyName, disabled }) => {
         {disabled ? (
           <input
             disabled={disabled}
-            value={location.state.name}
+            value={name}
             onChange={handleInputChange}
             type="text"
             placeholder="Enter Property Name Here"

@@ -9,6 +9,7 @@ import DisabledAmenties from './DisabledAmenties';
 
 const AmentiesBox = ({ setAmenties, disabled }) => {
   const location = useLocation();
+
   const [selectedOption, setSelectedOption] = useState(''); // Initialize the selected option state
   const handleCheckboxChange = event => {
     if (event.target.value === 'Public')
@@ -211,7 +212,7 @@ const AmentiesBox = ({ setAmenties, disabled }) => {
           </div>
         </div>
       ) : (
-        <DisabledAmenties setAmenties={setAmenties} disabled={setAmenties} />
+        <DisabledAmenties setAmenties={setAmenties} disabled={disabled} />
       )}
     </>
   );
