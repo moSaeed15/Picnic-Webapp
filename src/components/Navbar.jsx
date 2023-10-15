@@ -3,11 +3,34 @@ import LanguageToggle from './LanguageToggle';
 import Notifications from './Notifications';
 import { Button } from '@chakra-ui/react';
 import OwnerNotifications from './OwnerNotifications';
+import { useEffect } from 'react';
+import Cookies from 'universal-cookie';
 
 // import logo from './logo.png';
 
 const Navbar = ({ setLanguage }) => {
+  const cookies = new Cookies();
   const location = useLocation();
+
+  const refreshAccessToken = async () => {
+    const refresh = cookies.get('refreshtoken');
+
+    const response = await fetch(
+      `${
+        import.meta.env.VITE_BASE_API_PATH
+      }/api/v1/auth/login/refreshtoken?refresh_token=${refresh}`
+    );
+    const data = await response.json();
+    cookies.set('token', data.auth_token);
+  };
+
+  useEffect(() => {
+    // Set a timer to refresh the access token after 14 minutes
+    const refreshTokenTimer = setTimeout(refreshAccessToken, 1000);
+
+    return () => clearTimeout(refreshTokenTimer);
+  }, [location.pathname]);
+
   const { username, role } = JSON.parse(sessionStorage.getItem('username'));
   return (
     <>
