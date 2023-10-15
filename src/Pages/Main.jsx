@@ -9,7 +9,7 @@ import Cookies from 'universal-cookie';
 import UploadImages from '../components/UploadImages';
 import { useToast } from '@chakra-ui/react';
 
-const Main = () => {
+const Main = ({ language }) => {
   const [amenities, setAmenties] = useState({
     pool: true,
     gym: false,
@@ -19,13 +19,21 @@ const Main = () => {
     cable: false,
     ac: false,
     heating: false,
-    kitchen: false,
+    kitchen_utensils: false,
     garden: false,
     elevator: false,
     driver_room: false,
     nanny_room: false,
     elderly_disabled_suitable: false,
+    sea_nearby: false,
+    num_master_bedrooms: 0,
+    num_single_bedrooms: 0,
+    num_bathrooms: 0,
+    num_living_rooms: 0,
+    num_public_pools: 0,
+    num_private_pools: 0,
   });
+
   const [unitID, setUnitID] = useState('');
   const [type, setType] = useState('chalet');
   const [propetyName, setPropetyName] = useState('');
@@ -33,6 +41,7 @@ const Main = () => {
   const [pricingList, setPricingList] = useState([]);
   const [msg, setMsg] = useState({ title: '', description: '', status: '' });
   const toast = useToast();
+
   function handleErrorMessage(title, description, status) {
     setMsg(() => ({
       title: title,
@@ -50,6 +59,7 @@ const Main = () => {
       isClosable: true,
     });
   }
+
   useEffect(() => {
     if (msg.title && msg.description && msg.status) {
       showToast();
@@ -146,7 +156,7 @@ const Main = () => {
           propetyName={propetyName}
         />
         <AmentiesBox setAmenties={setAmenties} />
-        <PriceBox setPricingList={setPricingList} />
+        <PriceBox pricingList={pricingList} setPricingList={setPricingList} />
 
         <Notes />
         <button

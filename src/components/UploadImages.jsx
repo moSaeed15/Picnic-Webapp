@@ -1,9 +1,20 @@
-import { Box, Heading, SimpleGrid, Text, useToast } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Heading,
+  SimpleGrid,
+  Text,
+  useToast,
+} from '@chakra-ui/react';
 import { func } from 'prop-types';
 import { useEffect, useState } from 'react';
 import { FcUpload } from 'react-icons/fc';
+import { useLocation } from 'react-router-dom';
 
-const UploadImages = ({ token, unitID }) => {
+const UploadImages = ({ token, unitID, disabled }) => {
+  const location = useLocation();
+  const gallery = location.state?.gallery;
+
   const [images, setImages] = useState([]);
   const [msg, setMsg] = useState({ title: '', description: '', status: '' });
   const [photos, setPhotos] = useState();
@@ -111,14 +122,14 @@ const UploadImages = ({ token, unitID }) => {
           };
         });
       } else {
-        setMsg(() => {
-          return {
-            description:
-              'Images exceeded 10mbs upload less images or change size',
-            title: 'Images exceeded 10mbs ',
-            status: 'error',
-          };
-        });
+        // setMsg(() => {
+        //   return {
+        //     description:
+        //       'Images exceeded 10mbs upload less images or change size',
+        //     title: 'Images exceeded 10mbs ',
+        //     status: 'error',
+        //   };
+        // });
       }
     } else {
       setMsg(() => {
@@ -144,40 +155,69 @@ const UploadImages = ({ token, unitID }) => {
           </Text>
         </div>
         <div className=" border border-borderTable py-3 px-5 gap-3">
-          <label className="cursor-pointer">
-            <input
-              type="file"
-              multiple
-              style={{ display: 'none' }}
-              onChange={handleImageUpload}
-            />
-            <FcUpload fontSize="30px" />
-          </label>{' '}
+          {!disabled && (
+            <label className="cursor-pointer">
+              <input
+                type="file"
+                multiple
+                style={{ display: 'none' }}
+                onChange={handleImageUpload}
+              />
+              <FcUpload fontSize="30px" />
+            </label>
+          )}
+
           <SimpleGrid columns={4} spacing={4} mt={5}>
-            {images.map((image, index) => (
-              <Box
-                key={index}
-                w="100%"
-                h="200px"
-                bg="gray.200"
-                borderRadius="md"
-              >
-                <img
-                  src={image}
-                  alt={`uploaded-${index}`}
-                  style={{ objectFit: 'cover', width: '100%', height: '100%' }}
-                />
-              </Box>
-            ))}
+            {!disabled
+              ? images.map((image, index) => (
+                  <Box
+                    key={index}
+                    w="100%"
+                    h="200px"
+                    bg="gray.200"
+                    borderRadius="md"
+                  >
+                    <img
+                      src={image}
+                      alt={`uploaded-${index}`}
+                      style={{
+                        objectFit: 'cover',
+                        width: '100%',
+                        height: '100%',
+                      }}
+                    />
+                  </Box>
+                ))
+              : gallery.map((image, index) => (
+                  <Box
+                    key={index}
+                    w="100%"
+                    h="200px"
+                    bg="gray.200"
+                    borderRadius="md"
+                  >
+                    <img
+                      src={image.url}
+                      alt={`uploaded-${index}`}
+                      style={{
+                        objectFit: 'cover',
+                        width: '100%',
+                        height: '100%',
+                      }}
+                    />
+                  </Box>
+                ))}
           </SimpleGrid>
         </div>
       </div>
-      <button
-        onClick={() => PublishUnit()}
-        className="self-center mt-6 text-white   rounded-md px-36 py-3 bg-gradient-to-br from-tertiaryColor to-secondaryColor"
-      >
-        Upload Images and Publish
-      </button>
+      {!disabled && (
+        <button
+          onClick={() => PublishUnit()}
+          className="self-center mt-6 text-white   rounded-md px-36 py-3 bg-gradient-to-br from-tertiaryColor to-secondaryColor"
+        >
+          Upload Images and Publish
+        </button>
+      )}
     </Box>
   );
 };

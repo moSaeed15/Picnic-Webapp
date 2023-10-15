@@ -7,6 +7,9 @@ const ToggleButton = ({
   priceName,
   priceList,
   setPriceListSelected,
+  disabled,
+  amenties,
+  pricing_list,
 }) => {
   const [isChecked, setIsChecked] = useState(false);
   const variableName = String(amentiesName);
@@ -42,21 +45,61 @@ const ToggleButton = ({
     }
 
     setIsChecked(prev => !prev);
-    console.log(isChecked);
   };
 
-  return (
-    <div className="mx-2 bg-white flex items-center  justify-center">
-      <input type="checkbox" className="hidden" />
-      <label
-        onClick={toggleCheckbox}
-        className={`bg-toggleGrey w-12 h-6 rounded-xl cursor-pointer relative before:absolute before:bg-white
-      before:w-4 before:h-4 before:rounded-full before:m-1 before:duration-200 ${
-        isChecked ? '[&&]:bg-secondaryColor before:translate-x-6' : ''
-      }`}
-      ></label>
-    </div>
-  );
+  function returnHTML() {
+    if (disabled && !amenties) {
+      return (
+        <div className="mx-2 bg-white flex items-center  justify-center">
+          <input type="checkbox" className="hidden" />
+          <label
+            className={`bg-toggleGrey w-12 h-6 rounded-xl cursor-pointer relative before:absolute before:bg-white
+before:w-4 before:h-4 before:rounded-full before:m-1 before:duration-200 ${
+              isChecked ? '[&&]:bg-secondaryColor before:translate-x-6' : ''
+            } ${
+              pricing_list === true
+                ? '[&&]:bg-secondaryColor before:translate-x-6'
+                : ''
+            }`}
+          ></label>
+        </div>
+      );
+    }
+
+    if (!disabled) {
+      return (
+        <div className="mx-2 bg-white flex items-center  justify-center">
+          <input type="checkbox" className="hidden" />
+          <label
+            onClick={toggleCheckbox}
+            className={`bg-toggleGrey w-12 h-6 rounded-xl cursor-pointer relative before:absolute before:bg-white
+  before:w-4 before:h-4 before:rounded-full before:m-1 before:duration-200 ${
+    isChecked ? '[&&]:bg-secondaryColor before:translate-x-6' : ''
+  }`}
+          ></label>
+        </div>
+      );
+    }
+    if (disabled && amenties) {
+      return (
+        <div className="mx-2 bg-white flex items-center  justify-center">
+          <input type="checkbox" className="hidden" />
+          <label
+            className={`bg-toggleGrey w-12 h-6 rounded-xl cursor-pointer relative before:absolute before:bg-white
+  before:w-4 before:h-4 before:rounded-full before:m-1 before:duration-200 ${
+    isChecked ? '[&&]:bg-secondaryColor before:translate-x-6' : ''
+  } ${
+              amenties[amentiesName] === true
+                ? '[&&]:bg-secondaryColor before:translate-x-6'
+                : ''
+            }`}
+          ></label>
+        </div>
+      );
+    }
+  }
+
+  return <>{returnHTML()}</>;
 };
 
 export default ToggleButton;

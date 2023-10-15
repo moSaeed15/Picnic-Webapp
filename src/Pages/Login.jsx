@@ -4,11 +4,32 @@ import { replace, useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
+import { useToast } from '@chakra-ui/react';
 
 import jwt_decode from 'jwt-decode';
+import { useEffect, useState } from 'react';
 
 const Login = () => {
   // const [error, setError] = useState('');
+  const [msg, setMsg] = useState({ title: '', description: '', status: '' });
+
+  const toast = useToast();
+  function showToast() {
+    toast({
+      title: msg.title,
+      description: msg.description,
+      status: msg.status,
+      duration: 3000,
+      isClosable: true,
+    });
+  }
+  useEffect(() => {
+    // This code will run every time msg state is updated
+
+    if (msg.title && msg.description && msg.status) {
+      showToast();
+    }
+  }, [msg]);
 
   const navigate = useNavigate();
 
@@ -24,22 +45,41 @@ const Login = () => {
     }),
     // Submit form
     onSubmit: async values => {
-      const loginData = await fetch(
-        `${
-          import.meta.env.VITE_BASE_API_PATH
-        }/api/v1/auth/login/obtaintoken?username=${values.userName}&password=${
-          values.password
-        }`
-      );
-      const response = await loginData.json();
+      try {
+        const loginData = await fetch(
+          `${
+            import.meta.env.VITE_BASE_API_PATH
+          }/api/v1/auth/login/obtaintoken?username=${
+            values.userName
+          }&password=${values.password}`
+        );
+        const response = await loginData.json();
 
-      const decoded = jwt_decode(response.auth_token);
-      const cookies = new Cookies();
-      cookies.set('token', response.auth_token);
-      cookies.set('refreshtoken', response.refresh_token);
-      navigate(`/${decoded.user.role === 'owner' ? 'chalet' : 'admin'}`, {
-        replace: true,
-      });
+        const decoded = jwt_decode(response.auth_token);
+        console.log(decoded);
+        sessionStorage.setItem(
+          'username',
+          JSON.stringify({
+            username: decoded.user.username,
+            role: decoded.user.role,
+          })
+        );
+        const cookies = new Cookies();
+        cookies.set('token', response.auth_token);
+        cookies.set('refreshtoken', response.refresh_token);
+        navigate(`/${decoded.user.role === 'owner' ? 'chalet' : 'admin'}`, {
+          replace: true,
+        });
+      } catch (err) {
+        setMsg(() => {
+          return {
+            description:
+              'You have entered wrong credientials check and try again',
+            title: 'Wrong credientials',
+            status: 'error',
+          };
+        });
+      }
     },
   });
   const touchedPassword = formik.touched.password && formik.errors.password;

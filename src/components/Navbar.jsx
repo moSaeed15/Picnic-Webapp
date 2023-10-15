@@ -1,9 +1,13 @@
-import { Button } from '@chakra-ui/react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
+import LanguageToggle from './LanguageToggle';
+import Notifications from './Notifications';
+import { Button } from '@chakra-ui/react';
 
 // import logo from './logo.png';
-const Navbar = () => {
+
+const Navbar = ({ setLanguage, unApprovedUnits }) => {
   const location = useLocation();
+  const { username, role } = JSON.parse(sessionStorage.getItem('username'));
   return (
     <>
       <nav
@@ -18,13 +22,19 @@ const Navbar = () => {
           className="object-contain w-32"
         />
         <div className="flex gap-10 items-center">
-          <img
-            src="/bell.svg"
-            alt="Notification Icon"
-            loading="lazy"
-            className="bg-lightPrimaryColor p-2 rounded-md cursor-pointer"
-          />
-          <span>John</span>
+          <LanguageToggle setLanguage={setLanguage} />
+          {role === 'admin' ? (
+            <Notifications unApprovedUnits={unApprovedUnits} />
+          ) : (
+            <img
+              src="/bell.svg"
+              alt="Notification Icon"
+              loading="lazy"
+              className="bg-lightPrimaryColor p-2 rounded-md cursor-pointer"
+            />
+          )}
+
+          <span>{username}</span>
           <Link to="/">
             <Button colorScheme="teal">Log Out</Button>
           </Link>

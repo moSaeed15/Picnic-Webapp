@@ -8,6 +8,8 @@ const AmentiesAvailable = ({
   margin,
   setAmenties,
   amentiesName,
+  disabled,
+  amenties,
 }) => {
   return (
     <div
@@ -18,7 +20,12 @@ const AmentiesAvailable = ({
       <span className="text-base  text-primaryColor font-medium">{text}</span>
       <div className="flex items-center self-start text-sm font-medium  justify-self-end mr-5">
         <span>Not available</span>
-        <ToggleButton setAmenties={setAmenties} amentiesName={amentiesName} />
+        <ToggleButton
+          setAmenties={setAmenties}
+          amentiesName={amentiesName}
+          disabled={disabled}
+          amenties={amenties}
+        />
         <span>Available</span>
       </div>
     </div>

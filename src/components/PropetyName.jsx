@@ -1,4 +1,8 @@
-const PropetyName = ({ setPropetyName, propetyName }) => {
+import { useLocation } from 'react-router-dom';
+
+const PropetyName = ({ setPropetyName, propetyName, disabled }) => {
+  const location = useLocation();
+
   const handleInputChange = event => {
     const { value } = event.target;
     setPropetyName(value);
@@ -9,13 +13,24 @@ const PropetyName = ({ setPropetyName, propetyName }) => {
         <h2>Property Name</h2>
       </div>
       <div className="flex flex-col border border-borderTable ">
-        <input
-          value={propetyName}
-          onChange={handleInputChange}
-          type="text"
-          placeholder="Enter Property Name Here"
-          className="border rounded-md px-3 py-2 ml-3  focus:outline-primaryColor mr-10 my-5 "
-        />
+        {disabled ? (
+          <input
+            disabled={disabled}
+            value={location.state.name}
+            onChange={handleInputChange}
+            type="text"
+            placeholder="Enter Property Name Here"
+            className="border rounded-md px-3 py-2 ml-3  focus:outline-primaryColor mr-10 my-5 "
+          />
+        ) : (
+          <input
+            value={propetyName}
+            onChange={handleInputChange}
+            type="text"
+            placeholder="Enter Property Name Here"
+            className="border rounded-md px-3 py-2 ml-3  focus:outline-primaryColor mr-10 my-5 "
+          />
+        )}
       </div>
     </div>
   );
