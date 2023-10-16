@@ -37,7 +37,10 @@ const Main = ({ language }) => {
   const [unitID, setUnitID] = useState('');
   const [type, setType] = useState('chalet');
   const [propetyName, setPropetyName] = useState('');
-  const [location, setLocation] = useState('Al Khiran');
+  const [location, setLocation] = useState({
+    english: 'Al Khiran',
+    arabic: 'الخيران',
+  });
   const [pricingList, setPricingList] = useState([]);
   const [notes, setNotes] = useState('');
   const [msg, setMsg] = useState({ title: '', description: '', status: '' });
@@ -125,8 +128,8 @@ const Main = ({ language }) => {
         location: {
           address: [
             {
-              name: 'Kuwait',
-              name_l1: location,
+              name: location.english,
+              name_l1: location.arabic,
               level: 'city',
             },
           ],

@@ -56,12 +56,14 @@ const HouseButtons = ({ setType, disabled, type, language }) => {
         <div className="">
           <Link
             onClick={e => e.preventDefault()}
-            className={`border-borderButton border-r py-2  bg-tertiaryGrey text-textGrey px-20 rounded-l-full font-medium text-xs ${
+            className={`border-borderButton border-r py-2  bg-tertiaryGrey text-textGrey px-20 ${
+              language === 'en' ? 'rounded-l-full' : 'rounded-r-full'
+            } font-medium text-xs ${
               location.pathname === '/chalet' &&
               '[&&]:bg-primaryColor  text-white'
             } ${type === 'chalet' && '[&&&]:bg-primaryColor  text-white'}`}
           >
-            Chalet
+            {language === 'en' ? 'Chalet' : 'شالية'}
           </Link>
           <Link
             onClick={e => e.preventDefault()}
@@ -70,16 +72,18 @@ const HouseButtons = ({ setType, disabled, type, language }) => {
               '[&&]:bg-primaryColor  text-white'
             } ${type === 'farm' && '[&&&]:bg-primaryColor  text-white'}`}
           >
-            Farms
+            {language === 'en' ? 'Farms' : 'مزرعة'}
           </Link>
           <Link
             onClick={e => e.preventDefault()}
-            className={`border-borderButton py-2  bg-tertiaryGrey text-textGrey  px-20 rounded-r-full font-medium text-xs ${
+            className={`border-borderButton py-2  bg-tertiaryGrey text-textGrey  px-20 ${
+              language === 'en' ? 'rounded-r-full' : 'rounded-l-full'
+            } font-medium text-xs ${
               location.pathname === '/house' &&
               '[&&]:bg-primaryColor  text-white'
             } ${type === 'rest_house' && '[&&&]:bg-primaryColor  text-white'}`}
           >
-            Rest Houses
+            {language === 'en' ? 'Rest Houses' : 'استراحات'}
           </Link>
         </div>
       )}

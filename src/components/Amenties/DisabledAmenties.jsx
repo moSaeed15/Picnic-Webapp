@@ -19,6 +19,7 @@ const DisabledAmenties = ({ setAmenties, disabled, language }) => {
   const nearbySeaText = language === 'en' ? 'Nearby Sea?' : 'البحر مجاور؟';
   const options = {
     en: {
+      floors: 'The Number of Floors',
       amenities: 'Amenities',
       firstClass: 'First Class',
       secondClass: 'Second Class',
@@ -35,8 +36,10 @@ const DisabledAmenties = ({ setAmenties, disabled, language }) => {
       kitchenUtensils: 'Available Kitchen Utensils',
       nannyRoom: 'Nanny Room',
       availableWifi: 'Available Wifi',
+      garden: 'Garden',
     },
     ar: {
+      floors: 'عدد الطوابق',
       amenities: 'وسائل الراحة',
       firstClass: 'الدرجة الأولى',
       secondClass: 'الدرجة الثانية',
@@ -53,6 +56,7 @@ const DisabledAmenties = ({ setAmenties, disabled, language }) => {
       kitchenUtensils: 'أدوات المطبخ المتاحة',
       nannyRoom: 'غرفة ناني',
       availableWifi: 'واي فاي متاح',
+      garden: 'حديقة',
     },
   };
   return (

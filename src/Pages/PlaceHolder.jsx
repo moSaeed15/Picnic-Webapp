@@ -52,6 +52,7 @@ const PlaceHolder = ({ language }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const location = useLocation();
+  console.log(location);
   const [rejectionReason, setRejectReason] = useState('');
   const accept = async () => {
     const response = await fetch(
@@ -112,7 +113,7 @@ const PlaceHolder = ({ language }) => {
     <div className="flex flex-col">
       <main className=" py-6 px-10 mt-12 rounded-xl flex flex-col  bg-white border border-primaryGrey mx-24 ">
         <h1 className="text-secondaryColor font-bold text-2xl self-center mb-5">
-          {language === 'er' ? 'Property Information' : 'معلومات العقار'}
+          {language === 'en' ? 'Property Information' : 'معلومات العقار'}
         </h1>
 
         {/* House Type */}
@@ -126,7 +127,8 @@ const PlaceHolder = ({ language }) => {
         {/* Location Component   */}
         <LocationButtons
           disabled={disabled}
-          address={location.state.location.address[0].name_l1}
+          arabic={location.state.location.address[0].name_l1}
+          address={location.state.location.address[0].name}
           language={language}
         />
 
@@ -140,7 +142,11 @@ const PlaceHolder = ({ language }) => {
         <AmentiesBox disabled={disabled} language={language} />
         <PriceBox disabled={disabled} language={language} />
 
-        <Notes disabled={disabled} language={language} />
+        <Notes
+          disabled={disabled}
+          language={language}
+          text={location.state.description}
+        />
       </main>
 
       <UploadImages disabled={disabled} language={language} />
