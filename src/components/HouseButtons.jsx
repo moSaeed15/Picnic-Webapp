@@ -43,7 +43,7 @@ const HouseButtons = ({ setType, disabled, type, language }) => {
           </Link>
           <Link
             to="/house"
-            onClick={() => handleHouseClick('rest_house ')}
+            onClick={() => handleHouseClick('rest_house')}
             className={`border-borderButton py-2 border-r bg-tertiaryGrey text-textGrey  px-20  font-medium text-xs ${
               location.pathname === '/house' &&
               '[&&]:bg-primaryColor  text-white'

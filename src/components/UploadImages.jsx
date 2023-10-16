@@ -114,7 +114,8 @@ const UploadImages = ({ token, unitID, disabled, language }) => {
           },
         }
       );
-      if (publishUnit.status === 200 && error === '') {
+      // if (publishUnit.status === 200 && error === '')
+      if (publishUnit.status === 200) {
         setMsg(() => {
           return {
             description: 'Unit Published and pending apporval',

@@ -1,4 +1,4 @@
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import LanguageToggle from './LanguageToggle';
 import Notifications from './Notifications';
 import { Button } from '@chakra-ui/react';
@@ -11,7 +11,7 @@ import Cookies from 'universal-cookie';
 const Navbar = ({ setLanguage, language }) => {
   const cookies = new Cookies();
   const location = useLocation();
-
+  const navigate = useNavigate();
   const refreshAccessToken = async () => {
     const refresh = cookies.get('refreshtoken');
 
@@ -54,14 +54,24 @@ const Navbar = ({ setLanguage, language }) => {
         />
         <div className="flex gap-10 items-center">
           <LanguageToggle setLanguage={setLanguage} />
-          {role === 'admin' ? <Notifications /> : <OwnerNotifications />}
+          {role === 'admin' ? (
+            <Notifications language={language} />
+          ) : (
+            <OwnerNotifications language={language} />
+          )}
 
           <span>{username}</span>
-          <Link to="/">
-            <Button colorScheme="teal">
-              {language === 'er' ? 'Log Out' : 'تسجيل خروج'}
-            </Button>
-          </Link>
+
+          <Button
+            colorScheme="teal"
+            onClick={() => {
+              localStorage.clear();
+              navigate('/');
+              window.location.reload();
+            }}
+          >
+            {language === 'en' ? 'Log Out' : 'تسجيل خروج'}
+          </Button>
         </div>
       </nav>
       <Outlet />

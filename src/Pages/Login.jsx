@@ -10,6 +10,7 @@ import jwt_decode from 'jwt-decode';
 import { useEffect, useState } from 'react';
 
 const Login = () => {
+  localStorage.clear();
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
   const [msg, setMsg] = useState({ title: '', description: '', status: '' });

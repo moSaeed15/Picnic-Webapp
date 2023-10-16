@@ -280,7 +280,11 @@ const AmentiesBox = ({ setAmenties, disabled, language }) => {
           </div>
         </div>
       ) : (
-        <DisabledAmenties setAmenties={setAmenties} disabled={disabled} />
+        <DisabledAmenties
+          setAmenties={setAmenties}
+          disabled={disabled}
+          language={language}
+        />
       )}
     </>
   );

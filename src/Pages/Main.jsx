@@ -39,7 +39,7 @@ const Main = ({ language }) => {
   const [propetyName, setPropetyName] = useState('');
   const [location, setLocation] = useState('Al Khiran');
   const [pricingList, setPricingList] = useState([]);
-  const [description, setDescription] = useState('');
+  const [notes, setNotes] = useState('');
   const [msg, setMsg] = useState({ title: '', description: '', status: '' });
   const toast = useToast();
 
@@ -121,7 +121,7 @@ const Main = ({ language }) => {
     if (err === '') {
       const data = {
         name: propetyName,
-        description: description,
+        description: notes,
         location: {
           address: [
             {
@@ -144,7 +144,7 @@ const Main = ({ language }) => {
     <div>
       <main className=" py-6 px-10 mt-12 rounded-xl flex flex-col  bg-white border border-primaryGrey mx-24 ">
         <h1 className="text-secondaryColor font-bold text-2xl self-center mb-5">
-          {language === 'er' ? 'Property Information' : 'معلومات العقار'}
+          {language === 'en' ? 'Property Information' : 'معلومات العقار'}
         </h1>
         {/* House Type */}
         <HouseButtons setType={setType} language={language} />
@@ -168,11 +168,7 @@ const Main = ({ language }) => {
           language={language}
         />
 
-        <Notes
-          language={language}
-          setDescription={setDescription}
-          description={description}
-        />
+        <Notes language={language} setNotes={setNotes} notes={notes} />
         <button
           onClick={() => submitUnit()}
           className="self-center mt-6 text-white   rounded-md px-36 py-3 bg-gradient-to-br from-tertiaryColor to-secondaryColor"

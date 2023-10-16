@@ -13,7 +13,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Cookies from 'universal-cookie';
 
-const Notifications = () => {
+const Notifications = ({ language }) => {
   const cookies = new Cookies();
   const token = cookies.get('token');
   const [units, setUnits] = useState();
@@ -41,11 +41,11 @@ const Notifications = () => {
       <MenuButton
         border="none"
         as={IconButton}
-        aria-label="Options"
+        aria-label={language === 'en' ? 'Options' : 'الخيارات'}
         icon={
           <img
             src="/bell.svg"
-            alt="Notification Icon"
+            alt={language === 'en' ? 'Notification Icon' : 'أيقونة الإشعار'}
             loading="lazy"
             className="bg-lightPrimaryColor p-2 rounded-md cursor-pointer"
           />
@@ -76,8 +76,10 @@ const Notifications = () => {
                   <Flex display="flex" gap="50px">
                     <Box display="flex" flexDir="column" gap="20px">
                       <Text w="170px" textAlign="center">
-                        {unit && units[0].owner.contact.name} has requested to
-                        add a property
+                        {unit &&
+                          (language === 'en'
+                            ? `${units[0].owner.contact.name} has requested to add a property`
+                            : `طلب ${units[0].owner.contact.name} إضافة ممتلكات جديدة`)}
                       </Text>
                       <Link to="/placeholder" state={unit}>
                         <Text
@@ -87,7 +89,9 @@ const Notifications = () => {
                             localStorage.setItem('unit', JSON.stringify(unit));
                           }}
                         >
-                          View Form Details
+                          {language === 'en'
+                            ? 'View Form Details'
+                            : 'عرض تفاصيل النموذج'}
                         </Text>
                       </Link>
                     </Box>

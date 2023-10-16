@@ -3,7 +3,7 @@ import ChaletData from '../components/Admin/ChaletData';
 import GenerateUser from '../components/Admin/GenerateUser';
 import Cookies from 'universal-cookie';
 
-const Admin = () => {
+const Admin = ({ language }) => {
   const [chaletData, setChaletData] = useState();
   const [farmData, setFarmData] = useState();
   const [houseData, setHouseData] = useState();
@@ -14,7 +14,7 @@ const Admin = () => {
     const response = await fetch(
       `${
         import.meta.env.VITE_BASE_API_PATH
-      }/api/v1/admin/units/?page=1&limit=20`,
+      }/api/v1/admin/units/?page=1&limit=999`,
       {
         headers: {
           'Content-Type': 'application/json',
@@ -24,7 +24,6 @@ const Admin = () => {
     );
 
     const data = await response.json();
-    console.log(data);
     setFarmData(data.data.filter(item => item.type === 'farm'));
     setHouseData(data.data.filter(item => item.type === 'rest_house'));
     setChaletData(data.data.filter(item => item.type === 'chalet'));
@@ -37,27 +36,30 @@ const Admin = () => {
   return (
     <div className="2xl:px-52 xl:px-32 ">
       <h1 className="text-4xl font-bold text-secondaryColor mb-10   mt-7">
-        Admin Panel :
+        {language === 'en' ? 'Admin Panel :' : 'لوحة الإدارة:'}
       </h1>
-      <GenerateUser />
+      <GenerateUser language={language} />
       <div className="grid grid-cols-2   gap-10 mt-10">
         {chaletData?.length !== 0 && (
           <ChaletData
+            language={language}
             chaletData={chaletData}
             setChaletData={setChaletData}
-            title="Chalet"
+            title={language === 'en' ? 'Chalet' : 'الشاليه'}
           />
         )}
         {farmData?.length !== 0 && (
           <ChaletData
-            title="Farm"
+            language={language}
+            title={language === 'en' ? 'Farm' : 'المزرعة'}
             farmData={farmData}
             setFarmData={setFarmData}
           />
         )}
         {houseData?.length !== 0 && (
           <ChaletData
-            title="Rental Houses"
+            language={language}
+            title={language === 'en' ? 'Rental Houses' : 'بيوت للإيجار'}
             houseData={houseData}
             setHouseData={setHouseData}
           />

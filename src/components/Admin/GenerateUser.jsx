@@ -5,7 +5,7 @@ import Cookies from 'universal-cookie';
 import { useState } from 'react';
 import { FormErrorMessage, Text } from '@chakra-ui/react';
 
-const GenerateUser = () => {
+const GenerateUser = ({ language }) => {
   const [monthValue, setMonthValue] = useState('monthly');
   const [success, setSuccess] = useState('');
   const [error, setError] = useState('');
@@ -20,9 +20,15 @@ const GenerateUser = () => {
     },
     // Validation
     validationSchema: Yup.object({
-      userName: Yup.string().required('User name is required'),
-      email: Yup.string().required('Email is required'),
-      password: Yup.string().required('No password provided.'),
+      userName: Yup.string().required(
+        language === 'en' ? 'User name is required' : 'اسم المستخدم مطلوب'
+      ),
+      email: Yup.string().required(
+        language === 'en' ? 'Email is required' : 'البريد الإلكتروني مطلوب'
+      ),
+      password: Yup.string().required(
+        language === 'en' ? 'No password provided.' : 'كلمة المرور مطلوبة'
+      ),
     }),
     // Submit form
     onSubmit: async values => {
@@ -62,9 +68,17 @@ const GenerateUser = () => {
       const response = await loginData.json();
       console.log(loginData, response);
       if (loginData.status === 200) {
-        setSuccess('Account Creation Successful');
+        setSuccess(
+          language === 'en'
+            ? 'Account Creation Successful'
+            : 'تم إنشاء الحساب بنجاح'
+        );
       } else {
-        setError('Account Creation Unsuccessful');
+        setError(
+          language === 'en'
+            ? 'Account Creation Unsuccessful'
+            : 'فشل إنشاء الحساب'
+        );
       }
     },
   });
@@ -72,7 +86,7 @@ const GenerateUser = () => {
   return (
     <div className="flex flex-col  bg-white py-8 items-center gap-7 rounded-xl">
       <h2 className="text-4xl font-bold text-secondaryColor mb-3 text-center ">
-        Generate New User :
+        {language === 'en' ? 'Generate New User :' : 'إنشاء مستخدم جديد :'}
       </h2>
       <form
         onSubmit={formik.handleSubmit}
@@ -83,7 +97,7 @@ const GenerateUser = () => {
           value={formik.values.name}
           onChange={formik.handleChange}
           type="text"
-          placeholder="Enter Name"
+          placeholder={language === 'en' ? 'Enter Name' : 'أدخل الاسم'}
           className="border rounded-md px-3 py-2 focus:outline-primaryColor w-96"
         />
         <input
@@ -91,7 +105,9 @@ const GenerateUser = () => {
           value={formik.values.userName}
           onChange={formik.handleChange}
           type="text"
-          placeholder="Enter Username"
+          placeholder={
+            language === 'en' ? 'Enter Username' : 'أدخل اسم المستخدم'
+          }
           className="border rounded-md px-3 py-2 focus:outline-primaryColor  w-96"
         />
         <input
@@ -99,7 +115,7 @@ const GenerateUser = () => {
           value={formik.values.phone}
           onChange={formik.handleChange}
           type="text"
-          placeholder="Enter Phone"
+          placeholder={language === 'en' ? 'Enter Phone' : 'أدخل رقم الهاتف'}
           className="border rounded-md px-3 py-2 focus:outline-primaryColor  w-96"
         />
         <input
@@ -107,7 +123,9 @@ const GenerateUser = () => {
           value={formik.values.password}
           onChange={formik.handleChange}
           type="password"
-          placeholder="Enter Password"
+          placeholder={
+            language === 'en' ? 'Enter Password' : 'أدخل كلمة المرور'
+          }
           className=" border rounded-md px-3 py-2 focus:outline-primaryColor w-96"
         />
         <input
@@ -115,7 +133,9 @@ const GenerateUser = () => {
           value={formik.values.email}
           onChange={formik.handleChange}
           type="email"
-          placeholder="Enter Email"
+          placeholder={
+            language === 'en' ? 'Enter Email' : 'أدخل البريد الإلكتروني'
+          }
           className="border col-span-2  rounded-md px-3 py-2 focus:outline-primaryColor"
         />
       </form>
@@ -128,7 +148,7 @@ const GenerateUser = () => {
         onClick={formik.handleSubmit}
         className="self-center mt-3 text-white   rounded-md px-20  py-2  bg-gradient-to-br from-tertiaryColor to-secondaryColor  w-96"
       >
-        Generate
+        {language === 'en' ? 'Generate' : 'إنشاء'}
       </button>
     </div>
   );

@@ -153,7 +153,7 @@ const PlaceHolder = ({ language }) => {
           py="20px"
           onClick={() => accept()}
         >
-          Accept
+          {language === 'en' ? 'Accept' : 'موافق'}
         </Button>
         <Button
           colorScheme="red"
@@ -162,18 +162,28 @@ const PlaceHolder = ({ language }) => {
           py="20px"
           onClick={onOpen}
         >
-          Reject
+          {language === 'en' ? 'Reject' : 'رفض'}
         </Button>
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
           <ModalContent>
-            <ModalHeader>Write the Reason of refusal</ModalHeader>
+            <ModalHeader>
+              {language === 'en'
+                ? 'Write the Reason for Rejection'
+                : 'أدخل سبب الرفض'}
+            </ModalHeader>
             <ModalCloseButton />
             <ModalBody>
               <FormControl colorScheme="teal">
-                <FormLabel>Rejection Reason</FormLabel>
+                <FormLabel>
+                  {language === 'en' ? 'Rejection Reason' : 'سبب الرفض'}
+                </FormLabel>
                 <Input
-                  placeholder="Rejection Reason"
+                  placeholder={
+                    language === 'en'
+                      ? 'Enter Rejection Reason'
+                      : 'أدخل سبب الرفض'
+                  }
                   value={rejectionReason}
                   onChange={e => setRejectReason(e.target.value)}
                 />
@@ -182,9 +192,11 @@ const PlaceHolder = ({ language }) => {
 
             <ModalFooter>
               <Button colorScheme="teal" mr={3} onClick={() => reject()}>
-                Submit
+                {language === 'en' ? 'Submit' : 'إرسال'}
               </Button>
-              <Button onClick={onClose}>Cancel</Button>
+              <Button onClick={onClose}>
+                {language === 'en' ? 'Cancel' : 'إلغاء'}
+              </Button>
             </ModalFooter>
           </ModalContent>
         </Modal>
