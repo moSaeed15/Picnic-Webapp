@@ -10,6 +10,7 @@ const ToggleButton = ({
   disabled,
   amenties,
   pricing_list,
+  language,
 }) => {
   const [isChecked, setIsChecked] = useState(false);
   const variableName = String(amentiesName);
@@ -60,7 +61,7 @@ before:w-4 before:h-4 before:rounded-full before:m-1 before:duration-200 ${
               pricing_list === true
                 ? '[&&]:bg-secondaryColor before:translate-x-6'
                 : ''
-            }`}
+            } ${language === 'ar' && '[&&]:before:-translate-x-6'}`}
           ></label>
         </div>
       );
@@ -74,8 +75,16 @@ before:w-4 before:h-4 before:rounded-full before:m-1 before:duration-200 ${
             onClick={toggleCheckbox}
             className={`bg-toggleGrey w-12 h-6 rounded-xl cursor-pointer relative before:absolute before:bg-white
   before:w-4 before:h-4 before:rounded-full before:m-1 before:duration-200 ${
-    isChecked ? '[&&]:bg-secondaryColor before:translate-x-6' : ''
-  }`}
+    isChecked ? '[&&]:bg-secondaryColor' : ''
+  } ${
+              language === 'en' &&
+              isChecked &&
+              '[&&]:bg-secondaryColor before:translate-x-6'
+            } ${
+              language === 'ar' &&
+              isChecked &&
+              '[&&]:bg-secondaryColor before:-translate-x-6'
+            }`}
           ></label>
         </div>
       );
@@ -91,7 +100,7 @@ before:w-4 before:h-4 before:rounded-full before:m-1 before:duration-200 ${
               amenties[amentiesName] === true
                 ? '[&&]:bg-secondaryColor before:translate-x-6'
                 : ''
-            }`}
+            } ${language === 'ar' && '[&&]:before:-translate-x-6'}`}
           ></label>
         </div>
       );

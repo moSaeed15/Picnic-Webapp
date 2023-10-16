@@ -25,7 +25,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Cookies from 'universal-cookie';
 
-const PlaceHolder = () => {
+const PlaceHolder = ({ language }) => {
   const cookies = new Cookies();
   const token = cookies.get('token');
   const [msg, setMsg] = useState({ title: '', description: '', status: '' });
@@ -52,7 +52,6 @@ const PlaceHolder = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const location = useLocation();
-  console.log(location);
   const [rejectionReason, setRejectReason] = useState('');
   const accept = async () => {
     const response = await fetch(
@@ -113,29 +112,38 @@ const PlaceHolder = () => {
     <div className="flex flex-col">
       <main className=" py-6 px-10 mt-12 rounded-xl flex flex-col  bg-white border border-primaryGrey mx-24 ">
         <h1 className="text-secondaryColor font-bold text-2xl self-center mb-5">
-          Property Information
+          {language === 'er' ? 'Property Information' : 'معلومات العقار'}
         </h1>
 
         {/* House Type */}
 
-        <HouseButtons disabled={disabled} type={location.state.type} />
+        <HouseButtons
+          disabled={disabled}
+          type={location.state.type}
+          language={language}
+        />
 
         {/* Location Component   */}
         <LocationButtons
           disabled={disabled}
           address={location.state.location.address[0].name_l1}
+          language={language}
         />
 
         {/* Propety Name */}
 
-        <PropetyName disabled={disabled} name={location.state.name} />
-        <AmentiesBox disabled={disabled} />
-        <PriceBox disabled={disabled} />
+        <PropetyName
+          disabled={disabled}
+          name={location.state.name}
+          language={language}
+        />
+        <AmentiesBox disabled={disabled} language={language} />
+        <PriceBox disabled={disabled} language={language} />
 
-        <Notes disabled={disabled} />
+        <Notes disabled={disabled} language={language} />
       </main>
 
-      <UploadImages disabled={disabled} />
+      <UploadImages disabled={disabled} language={language} />
 
       <Box className="self-center mt-6 text-white " display="flex" gap="20px">
         <Button

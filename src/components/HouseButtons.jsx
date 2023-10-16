@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const HouseButtons = ({ setType, disabled, type }) => {
+const HouseButtons = ({ setType, disabled, type, language }) => {
   const [selectedHouse, setSelectedHouse] = useState(
     location.pathname.slice(1)
   );
@@ -14,22 +14,22 @@ const HouseButtons = ({ setType, disabled, type }) => {
   return (
     <div className="px-5">
       <label className="text-darkBlue text-base font-medium ml-1 mb-2  ">
-        Location:
+        {language === 'en' ? 'Location:' : 'الموقع:'}
       </label>
       {!disabled ? (
         <div className="">
           <Link
             to="/chalet"
             onClick={() => handleHouseClick('chalet')}
-            className={`border-borderButton border-r py-2  bg-tertiaryGrey text-textGrey px-20 rounded-l-full font-medium text-xs ${
+            className={`border-borderButton  py-2  bg-tertiaryGrey text-textGrey px-20  font-medium text-xs ${
               location.pathname === '/chalet' &&
               '[&&]:bg-primaryColor  text-white'
             } ${
               location.pathname === '/chalet' &&
               '[&&]:bg-primaryColor  text-white'
-            }`}
+            } ${language === 'en' ? 'rounded-l-full' : 'rounded-r-full'}`}
           >
-            Chalet
+            {language === 'en' ? 'Chalet:' : 'شالية'}
           </Link>
           <Link
             to="/farm"
@@ -39,17 +39,17 @@ const HouseButtons = ({ setType, disabled, type }) => {
               '[&&]:bg-primaryColor  text-white'
             }`}
           >
-            Farms
+            {language === 'en' ? 'Farms' : 'مزرعة'}
           </Link>
           <Link
             to="/house"
             onClick={() => handleHouseClick('rest_house ')}
-            className={`border-borderButton py-2  bg-tertiaryGrey text-textGrey  px-20 rounded-r-full font-medium text-xs ${
+            className={`border-borderButton py-2 border-r bg-tertiaryGrey text-textGrey  px-20  font-medium text-xs ${
               location.pathname === '/house' &&
               '[&&]:bg-primaryColor  text-white'
-            }`}
+            } ${language === 'en' ? 'rounded-r-full' : 'rounded-l-full'} `}
           >
-            Rest Houses
+            {language === 'en' ? 'Rest Houses' : 'استراحات'}
           </Link>
         </div>
       ) : (

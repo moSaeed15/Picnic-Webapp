@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react';
 import { FcUpload } from 'react-icons/fc';
 import { useLocation } from 'react-router-dom';
 
-const UploadImages = ({ token, unitID, disabled }) => {
+const UploadImages = ({ token, unitID, disabled, language }) => {
   const location = useLocation();
   const gallery = location.state?.gallery;
 
@@ -146,13 +146,15 @@ const UploadImages = ({ token, unitID, disabled }) => {
   return (
     <Box className=" mt-12 rounded-xl flex flex-col  bg-white border border-primaryGrey mx-24 pb-10 ">
       <h1 className="text-secondaryColor font-bold text-2xl self-center mt-5">
-        Image Upload
+        {language === 'er' ? 'Image Upload' : 'رفع الصور'}
       </h1>
       <div className="px-5 mt-5">
         <div className="text-white bg-primaryColor rounded-t-xl py-3 px-5 font-bold">
-          <Heading size="md">Upload Images</Heading>
+          <Heading size="md">
+            {language === 'er' ? 'Upload Images' : 'رفع الصور'}
+          </Heading>
           <Text fontSize="10px" color="teal.100">
-            Up to 15 images
+            {language === 'er' ? 'Up to 15 images' : 'ما يصل إلى 15 صورة'}
           </Text>
         </div>
         <div className=" border border-borderTable py-3 px-5 gap-3">
@@ -216,7 +218,7 @@ const UploadImages = ({ token, unitID, disabled }) => {
           onClick={() => PublishUnit()}
           className="self-center mt-6 text-white   rounded-md px-36 py-3 bg-gradient-to-br from-tertiaryColor to-secondaryColor"
         >
-          Upload Images and Publish
+          {language === 'er' ? 'Upload Images and Publish' : 'رفع الصور ونشرها'}
         </button>
       )}
     </Box>

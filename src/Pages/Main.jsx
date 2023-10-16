@@ -39,6 +39,7 @@ const Main = ({ language }) => {
   const [propetyName, setPropetyName] = useState('');
   const [location, setLocation] = useState('Al Khiran');
   const [pricingList, setPricingList] = useState([]);
+  const [description, setDescription] = useState('');
   const [msg, setMsg] = useState({ title: '', description: '', status: '' });
   const toast = useToast();
 
@@ -120,7 +121,7 @@ const Main = ({ language }) => {
     if (err === '') {
       const data = {
         name: propetyName,
-        description: 'string',
+        description: description,
         location: {
           address: [
             {
@@ -143,30 +144,43 @@ const Main = ({ language }) => {
     <div>
       <main className=" py-6 px-10 mt-12 rounded-xl flex flex-col  bg-white border border-primaryGrey mx-24 ">
         <h1 className="text-secondaryColor font-bold text-2xl self-center mb-5">
-          Property Information
+          {language === 'er' ? 'Property Information' : 'معلومات العقار'}
         </h1>
         {/* House Type */}
-        <HouseButtons setType={setType} />
+        <HouseButtons setType={setType} language={language} />
         {/* Location Component   */}
-        <LocationButtons location={location} setLocation={setLocation} />
+        <LocationButtons
+          location={location}
+          setLocation={setLocation}
+          language={language}
+        />
 
         {/* Propety Name */}
         <PropetyName
           setPropetyName={setPropetyName}
           propetyName={propetyName}
+          language={language}
         />
-        <AmentiesBox setAmenties={setAmenties} />
-        <PriceBox pricingList={pricingList} setPricingList={setPricingList} />
+        <AmentiesBox setAmenties={setAmenties} language={language} />
+        <PriceBox
+          pricingList={pricingList}
+          setPricingList={setPricingList}
+          language={language}
+        />
 
-        <Notes />
+        <Notes
+          language={language}
+          setDescription={setDescription}
+          description={description}
+        />
         <button
           onClick={() => submitUnit()}
           className="self-center mt-6 text-white   rounded-md px-36 py-3 bg-gradient-to-br from-tertiaryColor to-secondaryColor"
         >
-          Submit
+          {language === 'er' ? 'Submit' : 'سلم'}
         </button>
       </main>
-      <UploadImages token={token} unitID={unitID} />
+      <UploadImages token={token} unitID={unitID} language={language} />
     </div>
   );
 };

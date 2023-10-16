@@ -1,6 +1,12 @@
 import { useState } from 'react';
 
-const LocationButtons = ({ location, setLocation, disabled, address }) => {
+const LocationButtons = ({
+  location,
+  setLocation,
+  disabled,
+  address,
+  language,
+}) => {
   const [selectedButton, setSelectedButton] = useState('Al Khiran');
 
   const handleButtonClick = buttonText => {
@@ -14,10 +20,10 @@ const LocationButtons = ({ location, setLocation, disabled, address }) => {
         <div className="mt-5 px-5">
           <button
             onClick={e => handleButtonClick(e.target.innerText)}
-            className={`py-2 bg-tertiaryGrey  border-borderButton border-r px-4 text-textGrey  rounded-l-full font-medium text-xs ${
+            className={`py-2 bg-tertiaryGrey  border-borderButton border-r px-4 text-textGrey  font-medium text-xs ${
               selectedButton === 'Al Khiran' &&
               '[&]:bg-primaryColor text-white '
-            }`}
+            } ${language === 'en' ? 'rounded-l-full' : 'rounded-r-full'}`}
           >
             Al Khiran
           </button>
@@ -48,8 +54,10 @@ const LocationButtons = ({ location, setLocation, disabled, address }) => {
           </button>
           <button
             onClick={e => handleButtonClick(e.target.innerText)}
-            className={`py-2 text-textGrey font-medium px-4  rounded-r-full bg-tertiaryGrey text-xs ${
+            className={`py-2 text-textGrey font-medium px-4   bg-tertiaryGrey text-xs ${
               selectedButton === 'Other' && '[&]:bg-primaryColor  text-white '
+            } ${
+              language === 'en' ? 'rounded-r-full' : 'rounded-l-full border-r'
             }`}
           >
             Other
@@ -58,11 +66,13 @@ const LocationButtons = ({ location, setLocation, disabled, address }) => {
       ) : (
         <div className="mt-5 px-5">
           <button
-            className={`py-2 bg-tertiaryGrey  border-borderButton border-r px-4 text-textGrey  rounded-l-full font-medium text-xs ${
+            className={`py-2 bg-tertiaryGrey  border-borderButton border-r px-4 text-textGrey   font-medium text-xs ${
               !disabled &&
               selectedButton === 'Al Khiran' &&
               '[&]:bg-primaryColor text-white'
-            } ${address === 'Al Khiran' && '[&]:bg-primaryColor text-white'} `}
+            } ${address === 'Al Khiran' && '[&]:bg-primaryColor text-white'} ${
+              language === 'en' ? 'rounded-l-full' : 'rounded-r-full'
+            }`}
           >
             Al Khiran
           </button>
@@ -92,9 +102,11 @@ const LocationButtons = ({ location, setLocation, disabled, address }) => {
             Sabah Alahmad Sea City
           </button>
           <button
-            className={`py-2 text-textGrey font-medium px-4  rounded-r-full bg-tertiaryGrey text-xs ${
+            className={`py-2 text-textGrey font-medium px-4  bg-tertiaryGrey text-xs ${
               selectedButton === 'Other' && '[&]:bg-primaryColor  text-white '
-            }  ${address === 'Other' && '[&]:bg-primaryColor text-white'} `}
+            }  ${address === 'Other' && '[&]:bg-primaryColor text-white'} ${
+              language === 'en' ? 'rounded-r-full' : 'rounded-l-full'
+            } `}
           >
             Other
           </button>

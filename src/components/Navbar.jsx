@@ -8,7 +8,7 @@ import Cookies from 'universal-cookie';
 
 // import logo from './logo.png';
 
-const Navbar = ({ setLanguage }) => {
+const Navbar = ({ setLanguage, language }) => {
   const cookies = new Cookies();
   const location = useLocation();
 
@@ -22,14 +22,19 @@ const Navbar = ({ setLanguage }) => {
     );
     const data = await response.json();
     cookies.set('token', data.auth_token);
+    setTimeout(refreshAccessToken, 14 * 60 * 1000);
   };
 
   useEffect(() => {
     // Set a timer to refresh the access token after 14 minutes
-    const refreshTokenTimer = setTimeout(refreshAccessToken, 1000);
+    const refreshTokenTimer = setTimeout(refreshAccessToken, 14 * 60 * 1000);
 
     return () => clearTimeout(refreshTokenTimer);
   }, [location.pathname]);
+
+  useEffect(() => {
+    localStorage.setItem('lang', language);
+  }, [language]);
 
   const { username, role } = JSON.parse(sessionStorage.getItem('username'));
   return (
@@ -53,7 +58,9 @@ const Navbar = ({ setLanguage }) => {
 
           <span>{username}</span>
           <Link to="/">
-            <Button colorScheme="teal">Log Out</Button>
+            <Button colorScheme="teal">
+              {language === 'er' ? 'Log Out' : 'تسجيل خروج'}
+            </Button>
           </Link>
         </div>
       </nav>

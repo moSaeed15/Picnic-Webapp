@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const HandleIncreaseDecrease = ({ text }) => {
+const HandleIncreaseDecrease = ({ text, language }) => {
   const [floorNumber, setFloorNumber] = useState(1);
 
   const handleDecrease = () => {
@@ -12,12 +12,18 @@ const HandleIncreaseDecrease = ({ text }) => {
   };
 
   return (
-    <div className="grid grid-cols-2 px-5 pt-5 gap-y-5 border-b border-r border-borderTable ">
+    <div
+      className={`grid grid-cols-2 px-5 pt-5 gap-y-5 border-b  border-borderTable ${
+        language === 'en' ? 'border-r' : 'border-l'
+      }`}
+    >
       <span className="text-base  text-primaryColor font-medium">{text}</span>
       <div className="justify-self-end mr-16 mb-3 ">
         <span
           onClick={handleDecrease}
-          className=" px-2 py-1 bg-secondaryColor cursor-pointer  rounded-l-[4px]  text-white"
+          className={` px-2 py-1 bg-secondaryColor cursor-pointer  rounded-l-[4px]  text-white ${
+            language === 'en' ? 'rounded-l-[4px]' : 'rounded-r-[4px]'
+          }`}
         >
           -
         </span>
@@ -26,7 +32,9 @@ const HandleIncreaseDecrease = ({ text }) => {
         </span>
         <span
           onClick={handleIncrease}
-          className=" px-2 py-1 bg-secondaryColor cursor-pointer  rounded-r-[4px]  text-white"
+          className={` px-2 py-1 bg-secondaryColor cursor-pointer    text-white ${
+            language === 'en' ? 'rounded-r-[4px]' : 'rounded-l-[4px]'
+          }`}
         >
           +
         </span>
