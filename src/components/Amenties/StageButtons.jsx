@@ -9,7 +9,7 @@ const StageButtons = ({ language }) => {
 
   return (
     <div
-      className={`flex gap-5 items-center text-base  text-primaryColor font-medium`}
+      className={`flex xl:gap-5 lg:gap-1 items-center text-base  text-primaryColor font-medium`}
     >
       {language === 'en' ? 'Stage ' : 'المرحلة'}
       <div>

@@ -176,7 +176,7 @@ const Main = ({ language }) => {
           onClick={() => submitUnit()}
           className="self-center mt-6 text-white   rounded-md px-36 py-3 bg-gradient-to-br from-tertiaryColor to-secondaryColor"
         >
-          {language === 'er' ? 'Submit' : 'سلم'}
+          {language === 'en' ? 'Submit' : 'سلم'}
         </button>
       </main>
       <UploadImages token={token} unitID={unitID} language={language} />

@@ -31,7 +31,7 @@ const OwnerNotifications = () => {
       }
     );
     const { data } = await response.json();
-
+    console.log(data);
     SetOwnerUnits(data);
   };
 
@@ -49,7 +49,7 @@ const OwnerNotifications = () => {
             src="/bell.svg"
             alt="Notification Icon"
             loading="lazy"
-            className="bg-lightPrimaryColor p-2 rounded-md cursor-pointer"
+            className="bg-lightPrimaryColor p-2 rounded-md cursor-pointer sm:w-10"
           />
         }
         className="bg-lightPrimaryColor p-2 rounded-md cursor-pointer "
