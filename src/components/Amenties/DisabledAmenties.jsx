@@ -7,7 +7,6 @@ import HandleIncreaseDecrease from '../HandleIncreaseDecrease';
 
 const DisabledAmenties = ({ setAmenties, disabled, language }) => {
   const { type, amenities } = JSON.parse(localStorage.getItem('unit'));
-  console.log();
   const selectedOption =
     amenities?.num_public_pools === 1
       ? 'Public'

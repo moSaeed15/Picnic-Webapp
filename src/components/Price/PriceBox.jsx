@@ -267,7 +267,6 @@ const PriceBox = ({ pricingList, setPricingList, disabled, language }) => {
               />
               <span>{language === 'en' ? 'Available' : 'متاح'}</span>
 
-              {console.log()}
               <input
                 disabled={priceListSelected.sunday_to_wednesday ? false : true}
                 value={

@@ -52,7 +52,6 @@ const PlaceHolder = ({ language }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const location = useLocation();
-  console.log(location);
   const [rejectionReason, setRejectReason] = useState('');
   const accept = async () => {
     const response = await fetch(
@@ -104,7 +103,6 @@ const PlaceHolder = ({ language }) => {
           status: 'error',
         };
       });
-    console.log('first');
     navigate('/admin');
   };
 

@@ -40,6 +40,9 @@ const Main = ({ language }) => {
   const [location, setLocation] = useState({
     english: 'Al Khiran',
     arabic: 'الخيران',
+    latitude: 28.9181,
+    longitude: 48.1117,
+    _id: '13',
   });
   const [pricingList, setPricingList] = useState([]);
   const [notes, setNotes] = useState('');
@@ -98,7 +101,6 @@ const Main = ({ language }) => {
         );
       }
     } catch (err) {
-      console.log(err);
       handleErrorMessage(
         'Draft Creation Failed Check Inputs',
         'Draft Creation Failed',
@@ -108,7 +110,6 @@ const Main = ({ language }) => {
   };
 
   async function submitUnit() {
-    console.log(location);
     let err = '';
     if (pricingList.length === 0) {
       handleErrorMessage('Prices Empty', 'Enter at least one price', 'error');
@@ -128,9 +129,12 @@ const Main = ({ language }) => {
         location: {
           address: [
             {
+              _id: location._id,
               name: location.english,
               name_l1: location.arabic,
               level: 'city',
+              latitude: location.latitude,
+              longitude: location.longitude,
             },
           ],
           latitude: 0,

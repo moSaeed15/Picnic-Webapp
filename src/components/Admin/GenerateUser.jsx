@@ -66,7 +66,6 @@ const GenerateUser = ({ language }) => {
       );
 
       const response = await loginData.json();
-      console.log(loginData, response);
       if (loginData.status === 200) {
         setSuccess(
           language === 'en'

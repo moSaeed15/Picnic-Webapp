@@ -58,7 +58,6 @@ const Login = () => {
         const response = await loginData.json();
 
         const decoded = jwt_decode(response.auth_token);
-        console.log(decoded);
         sessionStorage.setItem(
           'username',
           JSON.stringify({

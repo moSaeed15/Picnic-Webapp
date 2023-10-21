@@ -11,11 +11,6 @@ const LocationButtons = ({
 }) => {
   const [selectedButton, setSelectedButton] = useState('Al Khiran');
   const [cities, setCities] = useState([]);
-  const handleButtonClick = buttonText => {
-    setSelectedButton(buttonText.english);
-    setLocation({ english: buttonText.english, arabic: buttonText.arabic });
-    console.log(buttonText);
-  };
 
   useEffect(() => {
     const getCities = async () => {
@@ -26,15 +21,29 @@ const LocationButtons = ({
       );
       const data = await response.json();
       const cities = data.map(city => {
-        return { english: city.name, arabic: city.name_l1 };
+        return {
+          english: city.name,
+          arabic: city.name_l1,
+          longitude: city.longitude,
+          _id: city._id,
+          latitude: city.latitude,
+        };
       });
-
       setCities(cities);
     };
     getCities();
-    console.log(address);
   }, []);
 
+  const handleButtonClick = buttonText => {
+    const cityData = cities.find(city => city.english === buttonText.english);
+    console.log(cities);
+    setSelectedButton(buttonText.english);
+    setLocation({
+      ...cityData,
+      english: buttonText.english,
+      arabic: buttonText.arabic,
+    });
+  };
   return (
     <>
       {!disabled ? (

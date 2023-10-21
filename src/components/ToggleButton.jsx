@@ -40,7 +40,6 @@ const ToggleButton = ({
   const toggleCheckbox = () => {
     if (amentiesName) {
       setAmenties(prev => {
-        console.log(prev);
         return { ...prev, [variableName]: !isChecked };
       });
     }

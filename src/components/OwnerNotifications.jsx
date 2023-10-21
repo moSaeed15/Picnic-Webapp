@@ -8,21 +8,22 @@ import {
   Flex,
   Divider,
   Button,
+  Heading,
+  Img,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Cookies from 'universal-cookie';
+import OwnerNotificationBox from './OwnerNotificationBox';
 
 const OwnerNotifications = () => {
   const cookies = new Cookies();
   const token = cookies.get('token');
   const [ownerUnits, SetOwnerUnits] = useState();
-  const { id } = JSON.parse(sessionStorage.getItem('username'));
 
   const getData = async () => {
     const response = await fetch(
-      `${
-        import.meta.env.VITE_BASE_API_PATH
-      }/api/v1/owner/units/all?owner_id=${id}&page=1&limit=10`,
+      `${import.meta.env.VITE_BASE_API_PATH}/api/v1/owner/notifications`,
       {
         headers: {
           'Content-Type': 'application/json',
@@ -31,7 +32,6 @@ const OwnerNotifications = () => {
       }
     );
     const { data } = await response.json();
-    console.log(data);
     SetOwnerUnits(data);
   };
 
@@ -67,37 +67,11 @@ const OwnerNotifications = () => {
           px="20px"
           display="flex"
           flexDir="column"
-          gap="30px"
+          gap="10px"
           maxH="300px"
           overflowY="scroll"
         >
-          {ownerUnits &&
-            ownerUnits.map((unit, i) => {
-              return (
-                <div key={i}>
-                  <Flex display="flex" gap="50px">
-                    <Box display="flex" flexDir="column" gap="20px">
-                      <Text w="170px" textAlign="center">
-                        {unit && ownerUnits[0].owner.contact.name} has requested
-                        to add a property
-                      </Text>
-                      <Link to="/placeholder" state={unit}>
-                        <Text
-                          w="170px"
-                          textAlign="center"
-                          onClick={() => {
-                            localStorage.setItem('unit', JSON.stringify(unit));
-                          }}
-                        >
-                          View Form Details
-                        </Text>
-                      </Link>
-                    </Box>
-                  </Flex>
-                  <Divider mt="5px" />
-                </div>
-              );
-            })}
+          <OwnerNotificationBox ownerUnits={ownerUnits} token={token} />
         </Flex>
       </MenuList>
     </Menu>

@@ -31,7 +31,7 @@ const Notifications = ({ language }) => {
     const unapprovedUnitsData = await unapprovedUnits.json();
 
     setUnits(unapprovedUnitsData.data);
-    console.log(unapprovedUnitsData.data);
+    unapprovedUnitsData.data;
   };
 
   useEffect(() => {
@@ -72,7 +72,6 @@ const Notifications = ({ language }) => {
         >
           {units &&
             units.map((unit, i) => {
-              console.log(unit);
               return (
                 <div key={i}>
                   <Flex display="flex" gap="50px">

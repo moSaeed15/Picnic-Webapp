@@ -63,7 +63,6 @@ const UploadImages = ({ token, unitID, disabled, language }) => {
               };
             });
           } else {
-            console.log('test');
             setMsg(() => {
               return {
                 description: 'You uploaded more than 15 images.',
@@ -77,7 +76,6 @@ const UploadImages = ({ token, unitID, disabled, language }) => {
       reader.readAsDataURL(files[i]);
     }
     // setFormData(formData);
-    // console.log(formData);
   };
   async function PublishUnit() {
     if (unitID !== '') {
