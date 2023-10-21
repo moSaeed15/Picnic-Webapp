@@ -48,7 +48,7 @@ const Notifications = ({ language }) => {
             src="/bell.svg"
             alt={language === 'en' ? 'Notification Icon' : 'أيقونة الإشعار'}
             loading="lazy"
-            className="bg-lightPrimaryColor p-2 rounded-md cursor-pointer"
+            className="bg-lightPrimaryColor p-2 rounded-md cursor-pointer sm:w-10"
           />
         }
         className="bg-lightPrimaryColor p-2 rounded-md cursor-pointer "

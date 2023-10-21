@@ -39,7 +39,7 @@ const Admin = ({ language }) => {
         {language === 'en' ? 'Admin Panel :' : 'لوحة الإدارة:'}
       </h1>
       <GenerateUser language={language} />
-      <div className="grid grid-cols-2   gap-10 mt-10">
+      <div className="grid grid-cols-1  lg:grid-cols-2   gap-10 mt-10">
         {chaletData?.length !== 0 && (
           <ChaletData
             language={language}

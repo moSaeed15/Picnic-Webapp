@@ -23,9 +23,3 @@
     font-size: 40%;
   }
 }
-
-@media (max-width: 35rem) {
-  html {
-    font-size: 35%;
-  }
-}
