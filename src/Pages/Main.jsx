@@ -38,7 +38,7 @@ const Main = ({ language }) => {
   const [type, setType] = useState('chalet');
   const [propetyName, setPropetyName] = useState('');
   const [location, setLocation] = useState({
-    english: 'Al Khiran',
+    english: 'Al-Khiran',
     arabic: 'الخيران',
     latitude: 28.9181,
     longitude: 48.1117,

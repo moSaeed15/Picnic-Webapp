@@ -66,7 +66,7 @@ const ChaletItem = ({ chaletData, farmData, houseData, language }) => {
           <Img
             src={`${
               chaletData?.gallery[0]?.url
-                ? chaletData?.gallery[0]?.url
+                ? 'https://jtrepair.com/wp-content/uploads/2019/02/placeholder-image11.jpg'
                 : 'https://jtrepair.com/wp-content/uploads/2019/02/placeholder-image11.jpg'
             }`}
             alt="Chalet105"
@@ -79,7 +79,7 @@ const ChaletItem = ({ chaletData, farmData, houseData, language }) => {
           <Img
             src={`${
               farmData?.gallery[0]?.url
-                ? farmData?.gallery[0]?.url
+                ? 'https://jtrepair.com/wp-content/uploads/2019/02/placeholder-image11.jpg'
                 : 'https://jtrepair.com/wp-content/uploads/2019/02/placeholder-image11.jpg'
             }`}
             alt="Chalet105"
@@ -92,7 +92,7 @@ const ChaletItem = ({ chaletData, farmData, houseData, language }) => {
           <Img
             src={`${
               houseData?.gallery[0]?.url
-                ? houseData?.gallery[0].url
+                ? 'https://jtrepair.com/wp-content/uploads/2019/02/placeholder-image11.jpg'
                 : 'https://jtrepair.com/wp-content/uploads/2019/02/placeholder-image11.jpg'
             }`}
             alt="Chalet105"

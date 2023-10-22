@@ -9,8 +9,9 @@ const LocationButtons = ({
   language,
   arabic,
 }) => {
-  const [selectedButton, setSelectedButton] = useState('Al Khiran');
+  const [selectedButton, setSelectedButton] = useState('Al-Khiran');
   const [cities, setCities] = useState([]);
+  const [citiesToBeMaped, setCitiesToBeMaped] = useState([]);
 
   useEffect(() => {
     const getCities = async () => {
@@ -29,7 +30,22 @@ const LocationButtons = ({
           latitude: city.latitude,
         };
       });
+      console.log(cities);
       setCities(cities);
+      const filterCities1 = cities.filter(
+        city => city.english !== 'Sabah Al Ahmad Sea City'
+      );
+      const filterCities2 = filterCities1.filter(
+        city => city.english !== 'Al-Subiyah'
+      );
+      const filterCities3 = filterCities2.filter(
+        city => city.english !== 'Al-Khiran'
+      );
+      const filterCities4 = filterCities3.filter(
+        city => city.english !== 'Bnaider'
+      );
+
+      setCitiesToBeMaped(filterCities4);
     };
     getCities();
   }, []);
@@ -50,14 +66,14 @@ const LocationButtons = ({
         <div className="mt-5 px-5">
           <button
             onClick={e =>
-              handleButtonClick({ english: 'Al Khiran', arabic: 'الخيران' })
+              handleButtonClick({ english: 'Al-Khiran', arabic: 'الخيران' })
             }
             className={`py-2 bg-tertiaryGrey  border-borderButton border-r px-4 text-textGrey  font-medium text-xs ${
-              selectedButton === 'Al Khiran' &&
+              selectedButton === 'Al-Khiran' &&
               '[&]:bg-primaryColor text-white '
             } ${language === 'en' ? 'rounded-l-full' : 'rounded-r-full'}`}
           >
-            {language === 'en' ? 'Al Khiran' : 'الخيران'}
+            {language === 'en' ? 'Al-Khiran' : 'الخيران'}
           </button>
           <button
             onClick={e =>
@@ -71,28 +87,29 @@ const LocationButtons = ({
           </button>
           <button
             onClick={e =>
-              handleButtonClick({ english: 'Alsubiy', arabic: 'الصبية' })
+              handleButtonClick({ english: 'Al-Subiyah', arabic: 'الصبية' })
             }
             className={`py-2 text-textGrey font-medium px-4 border-borderButton border-r bg-tertiaryGrey text-xs ${
-              selectedButton === 'Alsubiy' && '[&]:bg-primaryColor  text-white '
+              selectedButton === 'Al-Subiyah' &&
+              '[&]:bg-primaryColor  text-white '
             }`}
           >
-            {language === 'en' ? 'Alsubiy' : 'الصبية'}
+            {language === 'en' ? 'Al-Subiyah' : 'الصبية'}
           </button>
           <button
             onClick={e =>
               handleButtonClick({
-                english: 'Sabah Alahmad Sea City',
+                english: 'Sabah Al Ahmad Sea City',
                 arabic: 'مدينة صباح الأحمد البحرية',
               })
             }
             className={`py-2 text-textGrey font-medium px-4 border-borderButton border-r bg-tertiaryGrey text-xs ${
-              selectedButton === 'Sabah Alahmad Sea City' &&
+              selectedButton === 'Sabah Al Ahmad Sea City' &&
               '[&]:bg-primaryColor  text-white '
             }`}
           >
             {language === 'en'
-              ? 'Sabah Alahmad Sea City'
+              ? 'Sabah Al Ahmad Sea City'
               : 'مدينة صباح الأحمد البحرية'}
           </button>
 
@@ -107,7 +124,7 @@ const LocationButtons = ({
               {language === 'en' ? 'Other' : 'آخر'}
             </MenuButton>
             <MenuList>
-              {cities.map((city, i) => (
+              {citiesToBeMaped.map((city, i) => (
                 <MenuItem
                   key={i}
                   onClick={e =>
@@ -130,13 +147,13 @@ const LocationButtons = ({
           <button
             className={`py-2 bg-tertiaryGrey  border-borderButton border-r px-4 text-textGrey   font-medium text-xs ${
               !disabled &&
-              selectedButton === 'Al Khiran' &&
+              selectedButton === 'Al-Khiran' &&
               '[&]:bg-primaryColor text-white'
-            } ${address === 'Al Khiran' && '[&]:bg-primaryColor text-white'} ${
+            } ${address === 'Al-Khiran' && '[&]:bg-primaryColor text-white'} ${
               language === 'en' ? 'rounded-l-full' : 'rounded-r-full'
             }`}
           >
-            {language === 'en' ? 'Al Khiran' : 'الخيران'}
+            {language === 'en' ? 'Al-Khiran' : 'الخيران'}
           </button>
           <button
             className={`py-2 px-4 bg-tertiaryGrey border-borderButton border-r text-textGrey font-medium text-xs ${
@@ -147,22 +164,25 @@ const LocationButtons = ({
           </button>
           <button
             className={`py-2 text-textGrey font-medium px-4 border-borderButton border-r bg-tertiaryGrey text-xs ${
-              selectedButton === 'Alsubiy' && '[&]:bg-primaryColor  text-white '
-            }  ${address === 'Alsubiy' && '[&]:bg-primaryColor text-white'} `}
+              selectedButton === 'Al-Subiyah' &&
+              '[&]:bg-primaryColor  text-white '
+            }  ${
+              address === 'Al-Subiyah' && '[&]:bg-primaryColor text-white'
+            } `}
           >
-            {language === 'en' ? 'Alsubiy' : 'الصبية'}
+            {language === 'en' ? 'Al-Subiyah' : 'الصبية'}
           </button>
           <button
             className={`py-2 text-textGrey font-medium px-4 border-borderButton border-r bg-tertiaryGrey text-xs ${
-              selectedButton === 'Sabah Alahmad Sea City' &&
+              selectedButton === 'Sabah Al Ahmad Sea City' &&
               '[&]:bg-primaryColor  text-white '
             }  ${
-              address === 'Sabah Alahmad Sea City' &&
+              address === 'Sabah Al Ahmad Sea City' &&
               '[&]:bg-primaryColor text-white'
             } `}
           >
             {language === 'en'
-              ? 'Sabah Alahmad Sea City'
+              ? 'Sabah Al Ahmad Sea City'
               : 'مدينة صباح الأحمد البحرية'}{' '}
           </button>
           <Menu>
@@ -176,7 +196,7 @@ const LocationButtons = ({
               {language === 'en' ? 'Other' : 'آخر'}
             </MenuButton>
             <MenuList>
-              {cities.map((city, i) => (
+              {citiesToBeMaped.map((city, i) => (
                 <MenuItem
                   key={i}
                   onClick={e =>
