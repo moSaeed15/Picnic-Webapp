@@ -1,3 +1,5 @@
+import { Img } from '@chakra-ui/react';
+
 const ChaletItem = ({ chaletData, farmData, houseData, language }) => {
   function calculateMonthsRemaining(targetDate) {
     var currentDate = new Date();
@@ -18,6 +20,7 @@ const ChaletItem = ({ chaletData, farmData, houseData, language }) => {
 
   return (
     <div className="border-y border-borderTable py-5 px-8  ">
+      {/* {console.log(chaletData)} */}
       <div className="flex justify-between">
         <div className="flex flex-col font-normal text-secondaryColor gap-3">
           <h4 className="text-xl font-bold text-secondaryColor mb-3 ">
@@ -26,13 +29,13 @@ const ChaletItem = ({ chaletData, farmData, houseData, language }) => {
             {houseData && houseData.name}
           </h4>
           <p className="text-lg">
-            <span> {language === 'en' ? 'Owner Name:' : 'اسم المالك:'}</span>{' '}
+            <span> {language === 'en' ? 'Owner Name:' : 'اسم المالك:'}</span>
             {chaletData && chaletData.owner_name}
             {farmData && farmData.owner_name}
             {houseData && houseData.owner_name}
           </p>
           <p className="text-lg">
-            <span>{language === 'en' ? 'Unit Name:' : 'اسم الوحدة:'}</span>{' '}
+            <span>{language === 'en' ? 'Unit Name:' : 'اسم الوحدة:'}</span>
             {chaletData && chaletData.name}
             {farmData && farmData.name}
             {houseData && houseData.name}
@@ -40,17 +43,16 @@ const ChaletItem = ({ chaletData, farmData, houseData, language }) => {
           <p className="text-lg">
             <span>
               {language === 'en' ? 'No. of Clients:' : 'عدد العملاء:'}
-            </span>{' '}
+            </span>
             {chaletData && chaletData.started_bookings}
             {farmData && farmData.started_bookings}
             {houseData && houseData.started_bookings}
           </p>
           <p className="text-lg">
             <span>
-              {' '}
               {language === 'en'
                 ? 'Time Remaining for Subscription:'
-                : 'الوقت المتبقي للاشتراك:'}{' '}
+                : 'الوقت المتبقي للاشتراك:'}
             </span>
             {chaletData &&
               calculateMonthsRemaining(chaletData.owner_subscription_end_date)}
@@ -60,7 +62,45 @@ const ChaletItem = ({ chaletData, farmData, houseData, language }) => {
               calculateMonthsRemaining(houseData.owner_subscription_end_date)}
           </p>
         </div>
-        <img src="./Cover.png" alt="Chalet105" className="ml-3 " />
+        {chaletData && (
+          <Img
+            src={`${
+              chaletData?.gallery[0]?.url
+                ? chaletData?.gallery[0]?.url
+                : 'https://jtrepair.com/wp-content/uploads/2019/02/placeholder-image11.jpg'
+            }`}
+            alt="Chalet105"
+            width="254px"
+            height="210px"
+            className="ml-3 "
+          />
+        )}
+        {farmData && (
+          <Img
+            src={`${
+              farmData?.gallery[0]?.url
+                ? farmData?.gallery[0]?.url
+                : 'https://jtrepair.com/wp-content/uploads/2019/02/placeholder-image11.jpg'
+            }`}
+            alt="Chalet105"
+            width="254px"
+            height="210px"
+            className="ml-3 "
+          />
+        )}
+        {houseData && (
+          <Img
+            src={`${
+              houseData?.gallery[0]?.url
+                ? houseData?.gallery[0].url
+                : 'https://jtrepair.com/wp-content/uploads/2019/02/placeholder-image11.jpg'
+            }`}
+            alt="Chalet105"
+            width="254px"
+            height="210px"
+            className="ml-3 "
+          />
+        )}
       </div>
     </div>
   );

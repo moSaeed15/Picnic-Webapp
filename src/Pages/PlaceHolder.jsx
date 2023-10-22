@@ -52,6 +52,7 @@ const PlaceHolder = ({ language }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const location = useLocation();
+  console.log(location.state);
   const [rejectionReason, setRejectReason] = useState('');
   const accept = async () => {
     const response = await fetch(

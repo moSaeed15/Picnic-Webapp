@@ -10,9 +10,8 @@ import {
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 
-const OwnerNotificationBox = ({ ownerUnits, token }) => {
+const OwnerNotificationBox = ({ ownerUnits, token, language, setClicked }) => {
   const [msg, setMsg] = useState({ title: '', description: '', status: '' });
-
   const toast = useToast();
   function showToast() {
     toast({
@@ -40,6 +39,7 @@ const OwnerNotificationBox = ({ ownerUnits, token }) => {
   }
 
   const accept = async id => {
+    setClicked(prev => !prev);
     const response = await fetch(
       `${import.meta.env.VITE_BASE_API_PATH}/api/v1/owner/bookings/${id}`,
       {
@@ -62,6 +62,9 @@ const OwnerNotificationBox = ({ ownerUnits, token }) => {
   };
 
   const reject = async id => {
+    console.log(id);
+    setClicked(prev => !prev);
+
     const response = await fetch(
       `${import.meta.env.VITE_BASE_API_PATH}/api/v1/owner/bookings/${id}`,
       {
@@ -78,7 +81,7 @@ const OwnerNotificationBox = ({ ownerUnits, token }) => {
         return {
           description: 'Booking Rejected',
           title: 'Booking Rejected',
-          status: 'error',
+          status: 'success',
         };
       });
   };
@@ -91,9 +94,11 @@ const OwnerNotificationBox = ({ ownerUnits, token }) => {
             <div key={i}>
               <Flex display="flex" gap="10px">
                 <Box display="flex" flexDir="column" gap="10px">
-                  <Heading fontSize="20px">{unit.title}</Heading>
+                  <Heading fontSize="20px">
+                    {language === 'en' ? unit.title : unit.title_l1}
+                  </Heading>
                   <Text w="170px">
-                    {unit.message}{' '}
+                    {language === 'en' ? unit.message : unit.message_l1}
                     {unit.type === 'booking' &&
                       `From ${formatDate(unit.booking_out.start_date)} to 
                     ${formatDate(unit.booking_out.end_date)} by customer ${
@@ -102,7 +107,8 @@ const OwnerNotificationBox = ({ ownerUnits, token }) => {
                   </Text>
                   {unit.type === 'approval' && (
                     <Text w="170px">
-                      Unit Name: {unit.approval_out.unit_out.name}
+                      {language === 'en' ? 'Unit Name:' : 'إسم الوحدة:'}
+                      {unit.approval_out.unit_out.name}
                     </Text>
                   )}
 
@@ -116,7 +122,13 @@ const OwnerNotificationBox = ({ ownerUnits, token }) => {
                   <Img
                     width="90px"
                     height="90px"
-                    src={unit.approval_out.unit_out.thumbnail.url}
+                    src={
+                      unit.approval_out.unit_out.thumbnail.url.search(
+                        'google'
+                      ) === -1
+                        ? 'https://jtrepair.com/wp-content/uploads/2019/02/placeholder-image11.jpg'
+                        : 'https://jtrepair.com/wp-content/uploads/2019/02/placeholder-image11.jpg'
+                    }
                   />
                 )}
                 {unit.type === 'booking' && (
