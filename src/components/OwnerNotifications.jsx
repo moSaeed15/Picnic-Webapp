@@ -26,7 +26,7 @@ const OwnerNotifications = ({ language }) => {
     const response = await fetch(
       `${
         import.meta.env.VITE_BASE_API_PATH
-      }/api/v1/owner/notifications?page=1&limit=10`,
+      }/api/v1/owner/notifications?page=1&limit=1000`,
       {
         headers: {
           'Content-Type': 'application/json',
@@ -35,6 +35,7 @@ const OwnerNotifications = ({ language }) => {
       }
     );
     const { data } = await response.json();
+    console.log(data);
     SetOwnerUnits(data);
   };
 

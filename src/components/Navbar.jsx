@@ -5,6 +5,7 @@ import { Button } from '@chakra-ui/react';
 import OwnerNotifications from './OwnerNotifications';
 import { useEffect } from 'react';
 import Cookies from 'universal-cookie';
+import { useToastReact } from '../ToastProvider';
 
 // import logo from './logo.png';
 
@@ -12,17 +13,37 @@ const Navbar = ({ setLanguage, language }) => {
   const cookies = new Cookies();
   const location = useLocation();
   const navigate = useNavigate();
+  const showToast = useToastReact();
   const refreshAccessToken = async () => {
-    const refresh = cookies.get('refreshtoken');
+    try {
+      const refresh = cookies.get('refreshtoken');
+      const response = await fetch(
+        `${
+          import.meta.env.VITE_BASE_API_PATH
+        }/api/v1/auth/login/refreshtoken?refresh_token=${refresh}`
+      );
 
-    const response = await fetch(
-      `${
-        import.meta.env.VITE_BASE_API_PATH
-      }/api/v1/auth/login/refreshtoken?refresh_token=${refresh}`
-    );
-    const data = await response.json();
-    cookies.set('token', data.auth_token);
-    setTimeout(refreshAccessToken, 14 * 60 * 1000);
+      if (response.status !== 200) {
+        showToast({
+          description: `Token expired`,
+          title: 'Token expired',
+          status: 'error',
+        });
+        navigate('/'); // You can adjust the path based on your application's routes
+        return;
+      }
+
+      const data = await response.json();
+      cookies.set('token', data.auth_token);
+      setTimeout(refreshAccessToken, 14 * 60 * 1000);
+    } catch (error) {
+      showToast({
+        description: `Token expired`,
+        title: 'Token expired',
+        status: 'error',
+      });
+      navigate('/'); // Navigate to login page on error
+    }
   };
 
   useEffect(() => {

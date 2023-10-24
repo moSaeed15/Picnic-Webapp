@@ -20,6 +20,7 @@ const LocationButtons = ({
           import.meta.env.VITE_BASE_API_PATH
         }/api/v1/utility/locations/?country=Kuwait&level_filter=address`
       );
+
       const data = await response.json();
       const cities = data.map(city => {
         return {
@@ -30,7 +31,7 @@ const LocationButtons = ({
           latitude: city.latitude,
         };
       });
-      console.log(cities);
+
       setCities(cities);
       const filterCities1 = cities.filter(
         city => city.english !== 'Sabah Al Ahmad Sea City'
@@ -52,7 +53,6 @@ const LocationButtons = ({
 
   const handleButtonClick = buttonText => {
     const cityData = cities.find(city => city.english === buttonText.english);
-    console.log(cities);
     setSelectedButton(buttonText.english);
     setLocation({
       ...cityData,

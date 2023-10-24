@@ -1,14 +1,24 @@
-import { useFormik } from 'formik';
+import { ErrorMessage, useFormik } from 'formik';
 import * as Yup from 'yup';
 import SliderC from './SliderC';
 import Cookies from 'universal-cookie';
 import { useState } from 'react';
-import { FormErrorMessage, Text } from '@chakra-ui/react';
+import {
+  FormErrorMessage,
+  InputGroup,
+  InputLeftAddon,
+  Text,
+  Input,
+  FormControl,
+  Flex,
+} from '@chakra-ui/react';
+import { useToastReact } from '../../ToastProvider';
 
 const GenerateUser = ({ language }) => {
   const [monthValue, setMonthValue] = useState('monthly');
   const [success, setSuccess] = useState('');
   const [error, setError] = useState('');
+  const showToast = useToastReact();
 
   const formik = useFormik({
     initialValues: {
@@ -26,15 +36,26 @@ const GenerateUser = ({ language }) => {
       email: Yup.string().required(
         language === 'en' ? 'Email is required' : 'البريد الإلكتروني مطلوب'
       ),
+      phone: Yup.string()
+        .matches(
+          /^\+965\d{8}$/,
+          language === 'en'
+            ? 'Phone number must start with +965 and be followed by 8 numbers'
+            : 'يجب أن يبدأ رقم الهاتف ب +965 ويتبعه 8 أرقام'
+        )
+        .required(
+          language === 'en' ? 'Phone number is required' : 'رقم الهاتف مطلوب'
+        )
+        .min(11, 'number consists of at least 11 numbers'),
       password: Yup.string().required(
         language === 'en' ? 'No password provided.' : 'كلمة المرور مطلوبة'
       ),
     }),
     // Submit form
     onSubmit: async values => {
+      console.log(values);
       const cookies = new Cookies();
       const token = cookies.get('token');
-
       const loginData = await fetch(
         `${import.meta.env.VITE_BASE_API_PATH}/api/v1/admin/users/owner/create`,
         {
@@ -72,15 +93,21 @@ const GenerateUser = ({ language }) => {
             ? 'Account Creation Successful'
             : 'تم إنشاء الحساب بنجاح'
         );
+        showToast({
+          description: 'User Generation Successful',
+          title: 'Account Generation Successful',
+          status: 'success',
+        });
       } else {
-        setError(
-          language === 'en'
-            ? 'Account Creation Unsuccessful'
-            : 'فشل إنشاء الحساب'
-        );
+        showToast({
+          description: response.detail,
+          title: 'Account Generation Failed',
+          status: 'error',
+        });
       }
     },
   });
+  const touchedPhone = formik.touched.phone && formik.errors.phone;
 
   return (
     <div className="flex flex-col  bg-white py-8 items-center gap-7 rounded-xl">
@@ -109,14 +136,23 @@ const GenerateUser = ({ language }) => {
           }
           className="border rounded-md px-3 py-2 focus:outline-primaryColor  w-96"
         />
-        <input
-          name="phone"
-          value={formik.values.phone}
-          onChange={formik.handleChange}
-          type="text"
-          placeholder={language === 'en' ? 'Enter Phone' : 'أدخل رقم الهاتف'}
-          className="border rounded-md px-3 py-2 focus:outline-primaryColor  w-96"
-        />
+        <Flex flexDir="column">
+          <Input
+            maxLength="12"
+            type="tel"
+            name="phone"
+            value={formik.values.phone}
+            onChange={formik.handleChange}
+            placeholder={language === 'en' ? 'Enter Phone' : 'أدخل رقم الهاتف'}
+            className=" rounded-md px-3 py-2   w-96"
+            focusBorderColor="#2F6A77"
+          />
+          {touchedPhone && (
+            <Text maxW="380px" color="red.500">
+              {formik.errors.phone}
+            </Text>
+          )}
+        </Flex>
         <input
           name="password"
           value={formik.values.password}
@@ -125,7 +161,7 @@ const GenerateUser = ({ language }) => {
           placeholder={
             language === 'en' ? 'Enter Password' : 'أدخل كلمة المرور'
           }
-          className=" border rounded-md px-3 py-2 focus:outline-primaryColor w-96"
+          className=" border rounded-md px-3 py-2 focus:outline-primaryColor w-96 self-start"
         />
         <input
           name="email"

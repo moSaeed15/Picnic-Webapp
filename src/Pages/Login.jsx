@@ -8,30 +8,13 @@ import { Button, InputRightElement, useToast } from '@chakra-ui/react';
 
 import jwt_decode from 'jwt-decode';
 import { useEffect, useState } from 'react';
+import { useToastReact } from '../ToastProvider';
 
 const Login = () => {
   localStorage.clear();
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
-  const [msg, setMsg] = useState({ title: '', description: '', status: '' });
-
-  const toast = useToast();
-  function showToast() {
-    toast({
-      title: msg.title,
-      description: msg.description,
-      status: msg.status,
-      duration: 3000,
-      isClosable: true,
-    });
-  }
-  useEffect(() => {
-    // This code will run every time msg state is updated
-
-    if (msg.title && msg.description && msg.status) {
-      showToast();
-    }
-  }, [msg]);
+  const showToast = useToastReact();
 
   const navigate = useNavigate();
 
@@ -56,7 +39,16 @@ const Login = () => {
           }&password=${values.password}`
         );
         const response = await loginData.json();
-
+        if (loginData.status === 401) {
+          throw new Error(
+            JSON.stringify({ status: 400, message: response.detail })
+          );
+        }
+        if (loginData.status === 400) {
+          throw new Error(
+            JSON.stringify({ status: 400, message: response.detail })
+          );
+        }
         const decoded = jwt_decode(response.auth_token);
         sessionStorage.setItem(
           'username',
@@ -73,14 +65,20 @@ const Login = () => {
           replace: true,
         });
       } catch (err) {
-        setMsg(() => {
-          return {
-            description:
-              'You have entered wrong credientials check and try again',
+        const errorObject = JSON.parse(err.message);
+        console.log(errorObject);
+        if (errorObject.status === 400)
+          showToast({
+            description: `${errorObject.message}`,
             title: 'Wrong credientials',
             status: 'error',
-          };
-        });
+          });
+        if (errorObject.status === 401)
+          showToast({
+            description: `${errorObject.message}`,
+            title: 'User Subscription ended',
+            status: 'error',
+          });
       }
     },
   });
