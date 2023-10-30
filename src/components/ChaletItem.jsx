@@ -20,7 +20,6 @@ const ChaletItem = ({ chaletData, farmData, houseData, language }) => {
 
   return (
     <div className="border-y border-borderTable py-5 px-8  ">
-      {/* {console.log(chaletData)} */}
       <div className="flex justify-between">
         <div className="flex flex-col font-normal text-secondaryColor gap-3">
           <h4 className="text-xl font-bold text-secondaryColor mb-3 ">

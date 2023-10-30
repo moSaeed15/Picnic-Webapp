@@ -52,12 +52,12 @@ const PlaceHolder = ({ language }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const location = useLocation();
-  console.log(location.state);
   const [rejectionReason, setRejectReason] = useState('');
+  console.log(location.state._id);
   const accept = async () => {
     const response = await fetch(
       `${import.meta.env.VITE_BASE_API_PATH}/api/v1/admin/units/approve/${
-        location.state.approval.unit_id
+        location.state._id
       }`,
       {
         method: 'POST',
@@ -68,6 +68,7 @@ const PlaceHolder = ({ language }) => {
         body: JSON.stringify({ review: 'accepted', new_status: 'approved' }),
       }
     );
+
     if (response.status === 200)
       setMsg(() => {
         return {
@@ -82,7 +83,7 @@ const PlaceHolder = ({ language }) => {
   const reject = async () => {
     const response = await fetch(
       `${import.meta.env.VITE_BASE_API_PATH}/api/v1/admin/units/approve/${
-        location.state.approval.unit_id
+        location.state._id
       }`,
       {
         method: 'POST',

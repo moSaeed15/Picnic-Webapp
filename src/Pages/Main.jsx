@@ -47,6 +47,45 @@ const Main = ({ language }) => {
   const [pricingList, setPricingList] = useState([]);
   const [notes, setNotes] = useState('');
   const [msg, setMsg] = useState({ title: '', description: '', status: '' });
+
+  function resetData() {
+    setAmenties({
+      pool: true,
+      gym: false,
+      parking: false,
+      security: false,
+      wifi: false,
+      cable: false,
+      ac: false,
+      heating: false,
+      kitchen_utensils: false,
+      garden: false,
+      elevator: false,
+      driver_room: false,
+      nanny_room: false,
+      elderly_disabled_suitable: false,
+      sea_nearby: false,
+      num_master_bedrooms: 0,
+      num_single_bedrooms: 0,
+      num_bathrooms: 0,
+      num_living_rooms: 0,
+      num_public_pools: 0,
+      num_private_pools: 0,
+    });
+    setUnitID('');
+    setType('chalet');
+    setPropetyName('');
+    setLocation({
+      english: 'Al-Khiran',
+      arabic: 'الخيران',
+      latitude: 28.9181,
+      longitude: 48.1117,
+      _id: '13',
+    });
+    setPricingList([]);
+    setNotes('');
+  }
+
   const toast = useToast();
 
   function handleErrorMessage(title, description, status) {
@@ -108,7 +147,6 @@ const Main = ({ language }) => {
       );
     }
   };
-
   async function submitUnit() {
     let err = '';
     if (pricingList.length === 0) {
@@ -183,7 +221,12 @@ const Main = ({ language }) => {
           {language === 'en' ? 'Submit' : 'سلم'}
         </button>
       </main>
-      <UploadImages token={token} unitID={unitID} language={language} />
+      <UploadImages
+        token={token}
+        unitID={unitID}
+        language={language}
+        resetData={resetData}
+      />
     </div>
   );
 };

@@ -6,14 +6,14 @@ import {
   Text,
   useToast,
 } from '@chakra-ui/react';
-import { func } from 'prop-types';
 import { useEffect, useState } from 'react';
 import { FcUpload } from 'react-icons/fc';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-const UploadImages = ({ token, unitID, disabled, language }) => {
+const UploadImages = ({ token, unitID, disabled, language, resetData }) => {
   const location = useLocation();
   const gallery = location.state?.gallery;
+  const navigate = useNavigate();
 
   const [images, setImages] = useState([]);
   const [photos, setPhotos] = useState();
@@ -112,8 +112,15 @@ const UploadImages = ({ token, unitID, disabled, language }) => {
           },
         }
       );
-      // if (publishUnit.status === 200 && error === '')
-      if (publishUnit.status === 200) {
+      if (publishUnit.status === 200 && error === '') {
+        resetData();
+        setPhotos();
+        setImages([]);
+
+        setTimeout(function () {
+          navigate(0);
+        }, 3000);
+
         setMsg(() => {
           return {
             description: 'Unit Published and pending apporval',
@@ -122,14 +129,14 @@ const UploadImages = ({ token, unitID, disabled, language }) => {
           };
         });
       } else {
-        // setMsg(() => {
-        //   return {
-        //     description:
-        //       'Images exceeded 10mbs upload less images or change size',
-        //     title: 'Images exceeded 10mbs ',
-        //     status: 'error',
-        //   };
-        // });
+        setMsg(() => {
+          return {
+            description:
+              'Images exceeded 10mbs upload less images or change size',
+            title: 'Images exceeded 10mbs ',
+            status: 'error',
+          };
+        });
       }
     } else {
       setMsg(() => {

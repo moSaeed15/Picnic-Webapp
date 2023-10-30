@@ -66,7 +66,6 @@ const Login = () => {
         });
       } catch (err) {
         const errorObject = JSON.parse(err.message);
-        console.log(errorObject);
         if (errorObject.status === 400)
           showToast({
             description: `${errorObject.message}`,

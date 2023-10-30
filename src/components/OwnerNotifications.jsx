@@ -35,7 +35,6 @@ const OwnerNotifications = ({ language }) => {
       }
     );
     const { data } = await response.json();
-    console.log(data);
     SetOwnerUnits(data);
   };
 

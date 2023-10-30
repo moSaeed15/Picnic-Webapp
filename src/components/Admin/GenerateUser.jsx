@@ -53,7 +53,6 @@ const GenerateUser = ({ language }) => {
     }),
     // Submit form
     onSubmit: async values => {
-      console.log(values);
       const cookies = new Cookies();
       const token = cookies.get('token');
       const loginData = await fetch(

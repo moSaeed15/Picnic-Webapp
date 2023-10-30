@@ -62,7 +62,6 @@ const OwnerNotificationBox = ({ ownerUnits, token, language, setClicked }) => {
   };
 
   const reject = async id => {
-    console.log(id);
     setClicked(prev => !prev);
 
     const response = await fetch(
@@ -85,7 +84,6 @@ const OwnerNotificationBox = ({ ownerUnits, token, language, setClicked }) => {
         };
       });
   };
-
   return (
     <>
       {ownerUnits &&
@@ -111,6 +109,13 @@ const OwnerNotificationBox = ({ ownerUnits, token, language, setClicked }) => {
                       {unit.approval_out.unit_out.name}
                     </Text>
                   )}
+                  {unit.title === 'Unit Rejection' &&
+                    unit.approval_out.admin_comment !== '' && (
+                      <Text w="170px">
+                        {language === 'en' ? 'Reason:' : 'السبب'}
+                        {unit.approval_out.admin_comment}
+                      </Text>
+                    )}
 
                   {unit.type === 'booking' && (
                     <Text w="170px">
