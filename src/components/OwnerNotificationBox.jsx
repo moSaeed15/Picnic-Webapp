@@ -127,13 +127,7 @@ const OwnerNotificationBox = ({ ownerUnits, token, language, setClicked }) => {
                   <Img
                     width="90px"
                     height="90px"
-                    src={
-                      unit.approval_out.unit_out.thumbnail.url.search(
-                        'google'
-                      ) === -1
-                        ? 'https://jtrepair.com/wp-content/uploads/2019/02/placeholder-image11.jpg'
-                        : 'https://jtrepair.com/wp-content/uploads/2019/02/placeholder-image11.jpg'
-                    }
+                    src={unit.approval_out.unit_out.thumbnail.url}
                   />
                 )}
                 {unit.type === 'booking' && (

@@ -119,7 +119,7 @@ const UploadImages = ({ token, unitID, disabled, language, resetData }) => {
 
         setTimeout(function () {
           navigate(0);
-        }, 3000);
+        }, 2000);
 
         setMsg(() => {
           return {

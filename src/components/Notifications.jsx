@@ -20,7 +20,9 @@ const Notifications = ({ language }) => {
   const location = useLocation();
   const getData = async () => {
     const unapprovedUnits = await fetch(
-      `${import.meta.env.VITE_BASE_API_PATH}/api/v1/admin/units/approval`,
+      `${
+        import.meta.env.VITE_BASE_API_PATH
+      }/api/v1/admin/units/approval?page=1&limit=100`,
       {
         headers: {
           'Content-Type': 'application/json',
@@ -29,7 +31,7 @@ const Notifications = ({ language }) => {
       }
     );
     const unapprovedUnitsData = await unapprovedUnits.json();
-
+    console.log(unapprovedUnitsData);
     setUnits(unapprovedUnitsData.data);
     unapprovedUnitsData.data;
   };

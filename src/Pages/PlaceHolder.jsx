@@ -53,7 +53,6 @@ const PlaceHolder = ({ language }) => {
 
   const location = useLocation();
   const [rejectionReason, setRejectReason] = useState('');
-  console.log(location.state._id);
   const accept = async () => {
     const response = await fetch(
       `${import.meta.env.VITE_BASE_API_PATH}/api/v1/admin/units/approve/${
