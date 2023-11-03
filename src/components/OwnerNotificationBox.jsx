@@ -103,6 +103,7 @@ const OwnerNotificationBox = ({ ownerUnits, token, language, setClicked }) => {
                         unit.booking_out.name
                       }`}
                   </Text>
+                  {console.log(unit)}
                   {unit.type === 'approval' && (
                     <Text w="170px">
                       {language === 'en' ? 'Unit Name:' : 'إسم الوحدة:'}
@@ -116,10 +117,19 @@ const OwnerNotificationBox = ({ ownerUnits, token, language, setClicked }) => {
                         {unit.approval_out.admin_comment}
                       </Text>
                     )}
-
                   {unit.type === 'booking' && (
                     <Text w="170px">
                       Unit Name: {unit.booking_out.unit_out.name}
+                    </Text>
+                  )}
+                  {unit.type === 'booking' && (
+                    <Text w="170px" whiteSpace="nowrap">
+                      Phone number: {unit.booking_out.phone}
+                    </Text>
+                  )}
+                  {unit.type === 'booking' && (
+                    <Text w="200px" whiteSpace="nowrap">
+                      Email: {unit.booking_out.email}
                     </Text>
                   )}
                 </Box>
