@@ -98,7 +98,7 @@ const OwnerNotificationBox = ({ ownerUnits, token, language, setClicked }) => {
                   <Text w="170px">
                     {language === 'en' ? unit.message : unit.message_l1}
                     {unit.type === 'booking' &&
-                      `From ${formatDate(unit.booking_out.start_date)} to 
+                      ` From ${formatDate(unit.booking_out.start_date)} to 
                     ${formatDate(unit.booking_out.end_date)} by customer ${
                         unit.booking_out.name
                       }`}
