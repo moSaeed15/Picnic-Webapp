@@ -14,7 +14,7 @@ const UploadImages = ({ token, unitID, disabled, language, resetData }) => {
   const location = useLocation();
   const gallery = location.state?.gallery;
   const navigate = useNavigate();
-
+  const [isSubmited, setIsSubmited] = useState(false);
   const [images, setImages] = useState([]);
   const [photos, setPhotos] = useState();
   const [msg, setMsg] = useState({ title: '', description: '', status: '' });
@@ -79,6 +79,8 @@ const UploadImages = ({ token, unitID, disabled, language, resetData }) => {
   };
   async function PublishUnit() {
     if (unitID !== '') {
+      setIsSubmited(true);
+
       let error = '';
       for (let i = 0; i < photos.length; i++) {
         const formData = new FormData();
@@ -221,7 +223,9 @@ const UploadImages = ({ token, unitID, disabled, language, resetData }) => {
       </div>
       {!disabled && (
         <button
-          onClick={() => PublishUnit()}
+          onClick={() => {
+            if (!isSubmited) PublishUnit();
+          }}
           className="self-center mt-6 text-white   rounded-md px-36 py-3 bg-gradient-to-br from-tertiaryColor to-secondaryColor"
         >
           {language === 'en' ? 'Upload Images and Publish' : 'رفع الصور ونشرها'}
