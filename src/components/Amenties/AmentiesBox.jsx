@@ -6,8 +6,10 @@ import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types'; // Import PropTypes from 'prop-types'
 import HandleIncreaseDecrease from '../HandleIncreaseDecrease';
 import DisabledAmenties from './DisabledAmenties';
+import { Input } from '@chakra-ui/react';
+import NumberOfRoom from './NumberOfRoom';
 
-const AmentiesBox = ({ setAmenties, disabled, language }) => {
+const AmentiesBox = ({ setAmenties, disabled, language, amenities }) => {
   const location = useLocation();
 
   const [selectedOption, setSelectedOption] = useState(''); // Initialize the selected option state
@@ -36,6 +38,7 @@ const AmentiesBox = ({ setAmenties, disabled, language }) => {
       });
     setSelectedOption(event.target.value); // Update the selected option when a checkbox is clicked
   };
+
   return (
     <>
       {!disabled ? (
@@ -100,75 +103,11 @@ const AmentiesBox = ({ setAmenties, disabled, language }) => {
               text={language === 'en' ? 'Garden' : 'حديقة'}
               borderB={'border-b'}
             />
-
-            <div
-              className={`grid grid-cols-1 border-b px-5 pt-5  gap-y-5   border-borderTable  pb-4 ${
-                language === 'en' ? 'border-r' : 'border-l'
-              }`}
-            >
-              <span className="text-base text-primaryColor font-medium">
-                {language === 'en' ? 'The Number of Rooms' : 'عدد الغرف'}
-              </span>
-              <div className="flex gap-4 text-sm font-medium">
-                <div className="">
-                  <input
-                    type="checkbox"
-                    className={` ${
-                      language === 'en' ? 'mr-[7px]' : 'ml-[7px]'
-                    } `}
-                    onChange={e =>
-                      setAmenties(prev => {
-                        return {
-                          ...prev,
-                          num_master_bedrooms: e.target.checked ? 1 : 0,
-                        };
-                      })
-                    }
-                  />
-                  <label htmlFor="">
-                    {language === 'en' ? 'Master' : 'غرفة النوم الرئيسية'}
-                  </label>
-                </div>
-                <div className="">
-                  <input
-                    type="checkbox"
-                    className={` ${
-                      language === 'en' ? 'mr-[7px]' : 'ml-[7px]'
-                    } `}
-                    onChange={e =>
-                      setAmenties(prev => {
-                        return {
-                          ...prev,
-                          num_single_bedrooms: e.target.checked ? 1 : 0,
-                        };
-                      })
-                    }
-                  />
-                  <label htmlFor="">
-                    {language === 'en' ? 'Single' : 'غرفة نوم مفردة'}
-                  </label>
-                </div>
-                <div>
-                  <input
-                    type="checkbox"
-                    className={` ${
-                      language === 'en' ? 'mr-[7px]' : 'ml-[7px]'
-                    } `}
-                    onChange={e =>
-                      setAmenties(prev => {
-                        return {
-                          ...prev,
-                          num_bathrooms: e.target.checked ? 1 : 0,
-                        };
-                      })
-                    }
-                  />
-                  <label htmlFor="">
-                    {language === 'en' ? 'Bathroom' : 'حمام'}
-                  </label>
-                </div>
-              </div>
-            </div>
+            <NumberOfRoom
+              amenities={amenities}
+              language={language}
+              setAmenties={setAmenties}
+            />
 
             <AmentiesAvailable
               language={language}

@@ -141,7 +141,7 @@ const Main = ({ language }) => {
       }
     } catch (err) {
       handleErrorMessage(
-        'Draft Creation Failed Check Inputs',
+        'Owner can create max of 1 unit',
         'Draft Creation Failed',
         'error'
       );
@@ -206,7 +206,11 @@ const Main = ({ language }) => {
           propetyName={propetyName}
           language={language}
         />
-        <AmentiesBox setAmenties={setAmenties} language={language} />
+        <AmentiesBox
+          amenities={amenities}
+          setAmenties={setAmenties}
+          language={language}
+        />
         <PriceBox
           pricingList={pricingList}
           setPricingList={setPricingList}
