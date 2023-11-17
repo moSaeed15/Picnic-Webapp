@@ -14,7 +14,7 @@ const Admin = ({ language }) => {
     const response = await fetch(
       `${
         import.meta.env.VITE_BASE_API_PATH
-      }/api/v1/admin/units/?page=1&limit=999`,
+      }/api/v1/admin/units/?subscribed_only=true&active_only=true&page=1&limit=100`,
       {
         headers: {
           'Content-Type': 'application/json',
@@ -24,6 +24,7 @@ const Admin = ({ language }) => {
     );
 
     const data = await response.json();
+    console.log(data.data);
     setFarmData(data.data.filter(item => item.type === 'farm'));
     setHouseData(data.data.filter(item => item.type === 'rest_house'));
     setChaletData(data.data.filter(item => item.type === 'chalet'));
