@@ -6,6 +6,8 @@ import Admin from './Pages/Admin';
 import { useState } from 'react';
 import PlaceHolder from './Pages/PlaceHolder';
 import { ToastProvider } from './ToastProvider';
+import Manage from './Pages/Manage';
+
 function App() {
   const [language, setLanguage] = useState(
     localStorage.getItem('lang') ? localStorage.getItem('lang') : 'en'
@@ -24,6 +26,7 @@ function App() {
             <Route path="/chalet" element={<Main language={language} />} />
             <Route path="/farm" element={<Main language={language} />} />
             <Route path="/house" element={<Main language={language} />} />
+            <Route path="/manage" element={<Manage language={language} />} />
             <Route path="/admin" element={<Admin language={language} />} />
             <Route
               path="/placeholder"

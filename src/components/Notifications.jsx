@@ -31,9 +31,7 @@ const Notifications = ({ language }) => {
       }
     );
     const unapprovedUnitsData = await unapprovedUnits.json();
-    console.log(unapprovedUnitsData);
     setUnits(unapprovedUnitsData.data);
-    unapprovedUnitsData.data;
   };
 
   useEffect(() => {

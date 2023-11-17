@@ -103,7 +103,6 @@ const OwnerNotificationBox = ({ ownerUnits, token, language, setClicked }) => {
                         unit.booking_out.name
                       }`}
                   </Text>
-                  {console.log(unit)}
                   {unit.type === 'approval' && (
                     <Text w="170px">
                       {language === 'en' ? 'Unit Name:' : 'إسم الوحدة:'}
