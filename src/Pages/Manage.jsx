@@ -123,9 +123,7 @@ const Manage = ({ language }) => {
       )
     );
   };
-  useEffect(() => {
-    console.log(selectedDates);
-  }, [selectedDates]);
+  useEffect(() => {}, [selectedDates]);
   useEffect(() => {
     getData();
   }, [location.pathname, selectedValue]);

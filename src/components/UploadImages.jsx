@@ -29,7 +29,6 @@ const UploadImages = ({ token, unitID, disabled, language, resetData }) => {
   const handleDelete = indexToDelete => {
     // Update state with the modified arrays
     setPhotos(prevPhotos => {
-      console.log(prevPhotos);
       const photosArray = Array.from(prevPhotos);
       const newPhotos = photosArray.filter(
         (_, index) => index !== indexToDelete
@@ -39,7 +38,6 @@ const UploadImages = ({ token, unitID, disabled, language, resetData }) => {
       newPhotos.forEach(file => {
         newFileList.items.add(file);
       });
-      console.log(newFileList.files);
       return newFileList.files;
     });
     setImages(prevImages => {
@@ -72,7 +70,6 @@ const UploadImages = ({ token, unitID, disabled, language, resetData }) => {
     const imageFiles = [];
     if (photos) {
       setPhotos(prevPhotos => {
-        console.log(prevPhotos);
         const filesArray = Array.from(files);
         const prevPhotosArray = Array.from(prevPhotos);
         const concatenatedArray = filesArray.concat(prevPhotosArray);
@@ -82,7 +79,6 @@ const UploadImages = ({ token, unitID, disabled, language, resetData }) => {
         concatenatedArray.forEach(file => {
           newFileList.items.add(file);
         });
-        console.log(newFileList.files);
         return newFileList.files;
       });
     } else {
@@ -130,7 +126,6 @@ const UploadImages = ({ token, unitID, disabled, language, resetData }) => {
       for (let i = 0; i < photos.length; i++) {
         const formData = new FormData();
         formData.append(`file`, photos[i]);
-        console.log('first');
         const uploadImage = await fetch(
           `${
             import.meta.env.VITE_BASE_API_PATH

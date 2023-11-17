@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 
 const NumberOfRoom = ({ language, amenities, setAmenties }) => {
   const handleInputChange = (field, value) => {
-    console.log(amenities);
     setAmenties(prev => ({
       ...prev,
       [field]: +value,

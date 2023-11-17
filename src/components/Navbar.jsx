@@ -84,18 +84,26 @@ const Navbar = ({ setLanguage, language }) => {
             <OwnerNotifications language={language} />
           )}
           <span>{username}</span>{' '}
-          {role === 'admin' ? (
-            ''
-          ) : (
-            <Button
-              colorScheme="teal"
-              onClick={() => {
-                navigate('/chalet');
-              }}
-            >
-              {language === 'en' ? 'Add a Unit' : 'إضافة وحدة'}{' '}
-            </Button>
-          )}
+          {role !== 'admin' &&
+            (location.pathname === '/chalet' ? (
+              <Button
+                colorScheme="teal"
+                onClick={() => {
+                  navigate('/manage');
+                }}
+              >
+                {language === 'en' ? 'Manage your unit' : 'إدارة وحدتك'}
+              </Button>
+            ) : (
+              <Button
+                colorScheme="teal"
+                onClick={() => {
+                  navigate('/chalet');
+                }}
+              >
+                {language === 'en' ? 'Add a Unit' : 'إضافة وحدة'}
+              </Button>
+            ))}
           <Button
             colorScheme="teal"
             onClick={() => {
