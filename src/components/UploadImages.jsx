@@ -1,7 +1,9 @@
 import {
   Box,
   Button,
+  Flex,
   Heading,
+  IconButton,
   SimpleGrid,
   Text,
   background,
@@ -10,6 +12,8 @@ import {
 import { useEffect, useState } from 'react';
 import { FcUpload } from 'react-icons/fc';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { CloseIcon } from '@chakra-ui/icons';
+import ImageBox from './ImageBox';
 
 const UploadImages = ({ token, unitID, disabled, language, resetData }) => {
   const location = useLocation();
@@ -21,6 +25,30 @@ const UploadImages = ({ token, unitID, disabled, language, resetData }) => {
   const [msg, setMsg] = useState({ title: '', description: '', status: '' });
 
   const toast = useToast();
+
+  const handleDelete = indexToDelete => {
+    // Update state with the modified arrays
+    setPhotos(prevPhotos => {
+      console.log(prevPhotos);
+      const photosArray = Array.from(prevPhotos);
+      const newPhotos = photosArray.filter(
+        (_, index) => index !== indexToDelete
+      );
+      const newFileList = new DataTransfer();
+
+      newPhotos.forEach(file => {
+        newFileList.items.add(file);
+      });
+      console.log(newFileList.files);
+      return newFileList.files;
+    });
+    setImages(prevImages => {
+      const newImages = prevImages.filter(
+        (_, index) => index !== indexToDelete
+      );
+      return newImages;
+    });
+  };
 
   function showToast() {
     toast({
@@ -86,7 +114,7 @@ const UploadImages = ({ token, unitID, disabled, language, resetData }) => {
       for (let i = 0; i < photos.length; i++) {
         const formData = new FormData();
         formData.append(`file`, photos[i]);
-
+        console.log('first');
         const uploadImage = await fetch(
           `${
             import.meta.env.VITE_BASE_API_PATH
@@ -182,23 +210,12 @@ const UploadImages = ({ token, unitID, disabled, language, resetData }) => {
           <SimpleGrid columns={4} spacing={4} mt={5}>
             {!disabled
               ? images.map((image, index) => (
-                  <Box
+                  <ImageBox
                     key={index}
-                    w="100%"
-                    h="200px"
-                    bg="gray.200"
-                    borderRadius="md"
-                  >
-                    <img
-                      src={image}
-                      alt={`uploaded-${index}`}
-                      style={{
-                        objectFit: 'cover',
-                        width: '100%',
-                        height: '100%',
-                      }}
-                    />
-                  </Box>
+                    image={image}
+                    index={index}
+                    handleDelete={handleDelete}
+                  />
                 ))
               : gallery.map((image, index) => (
                   <Box
