@@ -40,7 +40,7 @@ const OwnerNotifications = ({ language }) => {
     );
     const { data } = await response.json();
     SetOwnerUnits(data);
-    if (response.status === 401) {
+    if (response.status === 401 || response.status === 403) {
       onOpen();
       setTimeout(function () {
         navigate('/');
