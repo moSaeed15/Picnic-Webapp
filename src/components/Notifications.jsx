@@ -8,16 +8,22 @@ import {
   Flex,
   Divider,
   Button,
+  useDisclosure,
 } from '@chakra-ui/react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Cookies from 'universal-cookie';
+import TimeoutModal from './TimeoutModal';
 
 const Notifications = ({ language }) => {
+  const navigate = useNavigate();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const cookies = new Cookies();
   const token = cookies.get('token');
   const [units, setUnits] = useState();
   const location = useLocation();
+
   const getData = async () => {
     const unapprovedUnits = await fetch(
       `${
@@ -32,6 +38,12 @@ const Notifications = ({ language }) => {
     );
     const unapprovedUnitsData = await unapprovedUnits.json();
     setUnits(unapprovedUnitsData.data);
+    if (unapprovedUnits.status === 401) {
+      onOpen();
+      setTimeout(function () {
+        navigate('/');
+      }, 3000);
+    }
   };
 
   useEffect(() => {
@@ -39,6 +51,7 @@ const Notifications = ({ language }) => {
   }, [location.pathname]);
   return (
     <Menu colorScheme="teal">
+      <TimeoutModal isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
       <MenuButton
         border="none"
         as={IconButton}

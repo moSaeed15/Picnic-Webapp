@@ -10,13 +10,17 @@ import {
   Button,
   Heading,
   Img,
+  useDisclosure,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import OwnerNotificationBox from './OwnerNotificationBox';
+import TimeoutModal from './TimeoutModal';
 
 const OwnerNotifications = ({ language }) => {
+  const navigate = useNavigate();
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const cookies = new Cookies();
   const token = cookies.get('token');
   const [ownerUnits, SetOwnerUnits] = useState();
@@ -36,6 +40,12 @@ const OwnerNotifications = ({ language }) => {
     );
     const { data } = await response.json();
     SetOwnerUnits(data);
+    if (response.status === 401) {
+      onOpen();
+      setTimeout(function () {
+        navigate('/');
+      }, 3000);
+    }
   };
 
   useEffect(() => {
@@ -43,6 +53,7 @@ const OwnerNotifications = ({ language }) => {
   }, [clicked]);
   return (
     <Menu colorScheme="teal">
+      <TimeoutModal isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
       <MenuButton
         border="none"
         as={IconButton}

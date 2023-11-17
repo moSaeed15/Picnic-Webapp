@@ -35,7 +35,7 @@ const Navbar = ({ setLanguage, language }) => {
 
       const data = await response.json();
       cookies.set('token', data.auth_token);
-      setTimeout(refreshAccessToken, 14 * 60 * 1000);
+      setTimeout(refreshAccessToken, 13 * 60 * 1000);
     } catch (error) {
       showToast({
         description: `Token expired`,
@@ -48,7 +48,7 @@ const Navbar = ({ setLanguage, language }) => {
 
   useEffect(() => {
     // Set a timer to refresh the access token after 14 minutes
-    const refreshTokenTimer = setTimeout(refreshAccessToken, 14 * 60 * 1000);
+    const refreshTokenTimer = setTimeout(refreshAccessToken, 13 * 60 * 1000);
 
     return () => clearTimeout(refreshTokenTimer);
   }, [location.pathname]);
