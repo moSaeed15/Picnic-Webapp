@@ -12,12 +12,10 @@ const Manage = () => {
   const [selectedValue, setSelectedValue] = useState('');
   const [selectedDates, setSelectedDates] = useState([]);
   const [finalDates, setFinalDates] = useState([]);
-  const [intialDates, setIntialDates] = useState([]);
   const showToast = useToastReact();
 
   const handleChange = value => {
     const newDates = [];
-    console.log(value);
     value.forEach(date => {
       if (date.length === 2) {
         let startDate = new Date(
@@ -92,16 +90,20 @@ const Manage = () => {
   };
 
   const handleSelectChange = event => {
+    setFinalDates([]);
+    setSelectedDates([]);
     const selectedUnitDates = units.find(
       unit => unit._id === event.target.value
     ).blocked_list;
     const dates = selectedUnitDates.map(date => {
       return [new DateObject(date.start_date), new DateObject(date.end_date)];
     });
-    console.log(dates);
-    setIntialDates(dates);
+    setSelectedDates(prevDates => {
+      return [...prevDates, ...dates];
+    });
     setSelectedValue(event.target.value);
   };
+
   const getData = async () => {
     const response = await fetch(
       `${
@@ -121,10 +123,12 @@ const Manage = () => {
       )
     );
   };
-
+  useEffect(() => {
+    console.log(selectedDates);
+  }, [selectedDates]);
   useEffect(() => {
     getData();
-  }, [location.pathname]);
+  }, [location.pathname, selectedValue]);
 
   return (
     <Box className=" mt-12 rounded-xl flex flex-col mx-24 ">
@@ -164,17 +168,6 @@ const Manage = () => {
             value={selectedDates}
           />
         </Box>
-        {selectedValue !== '' && (
-          <Box>
-            <Heading size="md" className="text-secondaryColor mb-3">
-              Previously locked dates:
-            </Heading>
-            <Text visibility="hidden" fontSize="12px" mb="5px">
-              To select a single date double click
-            </Text>
-            <Calendar value={intialDates} readOnly multiple range />
-          </Box>
-        )}
       </Flex>
       <Button
         onClick={handleSendDates}
