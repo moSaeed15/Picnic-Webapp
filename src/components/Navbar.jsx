@@ -71,7 +71,10 @@ const Navbar = ({ setLanguage, language }) => {
           src="./logo.png"
           alt="picnic-logo"
           loading="lazy"
-          className="object-contain w-32"
+          className="object-contain w-32 cursor-pointer"
+          onClick={() => {
+            role === 'admin' ? navigate('/admin') : navigate('/chalet');
+          }}
         />
         <div className="flex gap-10 items-center">
           <LanguageToggle setLanguage={setLanguage} />
@@ -80,9 +83,19 @@ const Navbar = ({ setLanguage, language }) => {
           ) : (
             <OwnerNotifications language={language} />
           )}
-
-          <span>{username}</span>
-
+          <span>{username}</span>{' '}
+          {role === 'admin' ? (
+            ''
+          ) : (
+            <Button
+              colorScheme="teal"
+              onClick={() => {
+                navigate('/manage');
+              }}
+            >
+              Manage Your Unit
+            </Button>
+          )}
           <Button
             colorScheme="teal"
             onClick={() => {
