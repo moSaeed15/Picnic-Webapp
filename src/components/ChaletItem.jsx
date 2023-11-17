@@ -27,27 +27,49 @@ const ChaletItem = ({ chaletData, farmData, houseData, language }) => {
             {farmData && farmData.name}
             {houseData && houseData.name}
           </h4>
-          <p className="text-lg">
+          <p className="text-md">
             <span> {language === 'en' ? 'Owner Name:' : 'اسم المالك:'}</span>
             {chaletData && chaletData.owner_name}
             {farmData && farmData.owner_name}
             {houseData && houseData.owner_name}
           </p>
-          <p className="text-lg">
+          <p className="text-md">
             <span>{language === 'en' ? 'Unit Name:' : 'اسم الوحدة:'}</span>
             {chaletData && chaletData.name}
             {farmData && farmData.name}
             {houseData && houseData.name}
           </p>
-          <p className="text-lg">
+          <p className="text-md">
             <span>
-              {language === 'en' ? 'No. of Clients:' : 'عدد العملاء:'}
-            </span>
+              {language === 'en'
+                ? 'No. of Clients Started bookings:'
+                : 'عدد العملاء:'}
+            </span>{' '}
             {chaletData && chaletData.started_bookings}
             {farmData && farmData.started_bookings}
             {houseData && houseData.started_bookings}
           </p>
-          <p className="text-lg">
+          <p className="text-md">
+            <span>
+              {language === 'en'
+                ? 'No. of Clients Completed bookings:'
+                : 'عدد العملاء:'}
+            </span>{' '}
+            {chaletData && chaletData.completed_bookings}
+            {farmData && farmData.completed_bookings}
+            {houseData && houseData.completed_bookings}
+          </p>
+          <p className="text-md">
+            <span>
+              {language === 'en'
+                ? 'No. of Clients Upcoming bookings:'
+                : 'عدد العملاء:'}
+            </span>{' '}
+            {chaletData && chaletData.upcoming_bookings}
+            {farmData && farmData.upcoming_bookings}
+            {houseData && houseData.upcoming_bookings}
+          </p>
+          <p className="text-md">
             <span>
               {language === 'en'
                 ? 'Time Remaining for Subscription:'
@@ -70,7 +92,7 @@ const ChaletItem = ({ chaletData, farmData, houseData, language }) => {
             }`}
             alt="Chalet105"
             width="254px"
-            height="210px"
+            height="240px"
             className="ml-3 "
           />
         )}
@@ -83,7 +105,7 @@ const ChaletItem = ({ chaletData, farmData, houseData, language }) => {
             }`}
             alt="Chalet105"
             width="254px"
-            height="210px"
+            height="240px"
             className="ml-3 "
           />
         )}
@@ -96,7 +118,7 @@ const ChaletItem = ({ chaletData, farmData, houseData, language }) => {
             }`}
             alt="Chalet105"
             width="254px"
-            height="210px"
+            height="240px"
             className="ml-3 "
           />
         )}

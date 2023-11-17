@@ -126,7 +126,7 @@ const DisabledAmenties = ({ setAmenties, disabled, language }) => {
                 readOnly
                 type="checkbox"
                 className="mr-[7px]"
-                checked={amenities.num_master_bedrooms}
+                checked={amenities.num_master_bedrooms > 0}
               />
               <label htmlFor="">{options[language].masterRoom}</label>
             </div>
