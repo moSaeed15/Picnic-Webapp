@@ -38,7 +38,8 @@ const Notifications = ({ language }) => {
     );
     const unapprovedUnitsData = await unapprovedUnits.json();
     setUnits(unapprovedUnitsData.data);
-    if (response.status === 401 || response.status === 403) {
+    console.log(unapprovedUnits.status);
+    if (unapprovedUnits.status === 401 || unapprovedUnits.status === 403) {
       onOpen();
       setTimeout(function () {
         navigate('/');
