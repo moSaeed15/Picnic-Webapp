@@ -93,7 +93,7 @@ const Navbar = ({ setLanguage, language }) => {
                 navigate('/chalet');
               }}
             >
-              Add a Unit
+              {language === 'en' ? 'Add a Unit' : 'إضافة وحدة'}{' '}
             </Button>
           )}
           <Button

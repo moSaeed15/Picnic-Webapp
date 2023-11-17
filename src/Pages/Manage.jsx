@@ -5,7 +5,7 @@ import { Calendar, DateObject } from 'react-multi-date-picker';
 import { useToastReact } from '../ToastProvider';
 import { json } from 'react-router-dom';
 
-const Manage = () => {
+const Manage = ({ language }) => {
   const cookies = new Cookies();
   const token = cookies.get('token');
   const [units, setUnits] = useState();
@@ -133,7 +133,7 @@ const Manage = () => {
   return (
     <Box className=" mt-12 rounded-xl flex flex-col mx-24 ">
       <Heading className="text-secondaryColor font-bold text-2xl mb-5">
-        Manage Your units
+        {language === 'en' ? 'Manage Your units' : 'إدارة وحداتك'}
       </Heading>
       {units && (
         <Select
@@ -156,10 +156,14 @@ const Manage = () => {
       <Flex gap="50px">
         <Box>
           <Heading size="md" className="text-secondaryColor mb-3">
-            Choose new booked dates:
+            {language === 'en'
+              ? 'Choose new blocked dates'
+              : 'اختر تواريخ محظورة جديدة'}
           </Heading>
-          <Text fontSize="12px" opacity="0.5" mb="5px">
-            To select a single day double click
+          <Text fontSize="14px" opacity="0.5" mb="5px">
+            {language === 'en'
+              ? 'To select a single day double click'
+              : 'لتحديد يوم واحد انقر مرتين'}
           </Text>
           <Calendar
             multiple
@@ -175,7 +179,7 @@ const Manage = () => {
         colorScheme="teal"
         mt="20px"
       >
-        Send Dates
+        {language === 'en' ? 'Send Dates' : 'إرسال التواريخ'}
       </Button>
     </Box>
   );

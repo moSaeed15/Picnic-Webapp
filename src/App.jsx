@@ -7,6 +7,7 @@ import { useState } from 'react';
 import PlaceHolder from './Pages/PlaceHolder';
 import { ToastProvider } from './ToastProvider';
 import Manage from './Pages/Manage';
+import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 
 function App() {
   const [language, setLanguage] = useState(
@@ -14,28 +15,34 @@ function App() {
   );
 
   return (
-    <div
-      className={`font-Urbanist pb-20 ${language === 'ar' ? 'direction' : ''} `}
+    <ChakraProvider
+      theme={extendTheme({ direction: language === 'ar' ? 'rtl' : 'ltr' })}
     >
-      <ToastProvider>
-        <Routes>
-          <Route index element={<Login />} />
-          <Route
-            element={<Navbar setLanguage={setLanguage} language={language} />}
-          >
-            <Route path="/chalet" element={<Main language={language} />} />
-            <Route path="/farm" element={<Main language={language} />} />
-            <Route path="/house" element={<Main language={language} />} />
-            <Route path="/manage" element={<Manage language={language} />} />
-            <Route path="/admin" element={<Admin language={language} />} />
+      <div
+        className={`font-Urbanist pb-20 ${
+          language === 'ar' ? 'direction' : ''
+        } `}
+      >
+        <ToastProvider>
+          <Routes>
+            <Route index element={<Login />} />
             <Route
-              path="/placeholder"
-              element={<PlaceHolder language={language} />}
-            />
-          </Route>
-        </Routes>
-      </ToastProvider>
-    </div>
+              element={<Navbar setLanguage={setLanguage} language={language} />}
+            >
+              <Route path="/chalet" element={<Main language={language} />} />
+              <Route path="/farm" element={<Main language={language} />} />
+              <Route path="/house" element={<Main language={language} />} />
+              <Route path="/manage" element={<Manage language={language} />} />
+              <Route path="/admin" element={<Admin language={language} />} />
+              <Route
+                path="/placeholder"
+                element={<PlaceHolder language={language} />}
+              />
+            </Route>
+          </Routes>
+        </ToastProvider>
+      </div>
+    </ChakraProvider>
   );
 }
 
