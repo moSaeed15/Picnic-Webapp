@@ -61,7 +61,7 @@ const Login = () => {
         const cookies = new Cookies();
         cookies.set('token', response.auth_token);
         cookies.set('refreshtoken', response.refresh_token);
-        navigate(`/${decoded.user.role === 'owner' ? 'chalet' : 'admin'}`, {
+        navigate(`/${decoded.user.role === 'owner' ? 'manage' : 'admin'}`, {
           replace: true,
         });
       } catch (err) {

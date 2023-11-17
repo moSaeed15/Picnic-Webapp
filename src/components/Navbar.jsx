@@ -73,7 +73,7 @@ const Navbar = ({ setLanguage, language }) => {
           loading="lazy"
           className="object-contain w-32 cursor-pointer"
           onClick={() => {
-            role === 'admin' ? navigate('/admin') : navigate('/chalet');
+            role === 'admin' ? navigate('/admin') : navigate('/manage');
           }}
         />
         <div className="flex gap-10 items-center">
@@ -90,10 +90,10 @@ const Navbar = ({ setLanguage, language }) => {
             <Button
               colorScheme="teal"
               onClick={() => {
-                navigate('/manage');
+                navigate('/chalet');
               }}
             >
-              Manage Your Unit
+              Add a Unit
             </Button>
           )}
           <Button
