@@ -70,8 +70,24 @@ const UploadImages = ({ token, unitID, disabled, language, resetData }) => {
   const handleImageUpload = event => {
     const files = event.target.files;
     const imageFiles = [];
-    setPhotos(files);
+    if (photos) {
+      setPhotos(prevPhotos => {
+        console.log(prevPhotos);
+        const filesArray = Array.from(files);
+        const prevPhotosArray = Array.from(prevPhotos);
+        const concatenatedArray = filesArray.concat(prevPhotosArray);
 
+        const newFileList = new DataTransfer();
+
+        concatenatedArray.forEach(file => {
+          newFileList.items.add(file);
+        });
+        console.log(newFileList.files);
+        return newFileList.files;
+      });
+    } else {
+      setPhotos(files);
+    }
     for (let i = 0; i < files.length; i++) {
       const reader = new FileReader();
       reader.onloadend = () => {
