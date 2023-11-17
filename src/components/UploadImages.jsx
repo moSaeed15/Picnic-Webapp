@@ -4,6 +4,7 @@ import {
   Heading,
   SimpleGrid,
   Text,
+  background,
   useToast,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';

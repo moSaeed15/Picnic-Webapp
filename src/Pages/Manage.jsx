@@ -119,7 +119,7 @@ const Manage = ({ language }) => {
     const ownerUnit = await response.json();
     setUnits(
       ownerUnit.data.filter(
-        unit => unit.approval_logs[0].approval_status === 'approved'
+        unit => unit.approval_logs[0]?.approval_status === 'approved'
       )
     );
   };
