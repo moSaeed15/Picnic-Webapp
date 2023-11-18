@@ -139,10 +139,19 @@ const Main = ({ language }) => {
           'success'
         );
       }
+      console.log(response);
+      console.log(loginData);
+      if (loginData.status === 400) {
+        throw new Error(
+          JSON.stringify({ status: 400, message: response.detail })
+        );
+      }
     } catch (err) {
+      const errorObject = JSON.parse(err.message);
+
       handleErrorMessage(
-        'Owner can create max of 1 unit',
-        'Draft Creation Failed',
+        errorObject.message,
+        ' Error while creating draft',
         'error'
       );
     }
