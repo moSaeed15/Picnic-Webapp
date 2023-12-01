@@ -85,7 +85,9 @@ const Navbar = ({ setLanguage, language }) => {
           )}
           <span>{username}</span>{' '}
           {role !== 'admin' &&
-            (location.pathname === '/chalet' ? (
+            (location.pathname === '/chalet' ||
+            location.pathname === '/farm' ||
+            location.pathname === '/house' ? (
               <Button
                 colorScheme="teal"
                 onClick={() => {
