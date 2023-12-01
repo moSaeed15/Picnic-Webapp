@@ -1,15 +1,19 @@
 import { useEffect, useState } from 'react';
 import AmentiesBox from '../components/Amenties/AmentiesBox';
 import HouseButtons from '../components/HouseButtons';
-import LocationButtons from '../components/LocationButtons';
+import LocationButtons from '../components/Location/LocationButtons';
 import Notes from '../components/Notes/Notes';
 import PriceBox from '../components/Price/PriceBox';
 import PropetyName from '../components/PropetyName';
 import Cookies from 'universal-cookie';
 import UploadImages from '../components/UploadImages';
 import { useToast } from '@chakra-ui/react';
+import { useLocation } from 'react-router-dom';
+import FarmButtons from '../components/Location/FarmButtons';
+import RestButtons from '../components/Location/RestButtons';
 
 const Main = ({ language }) => {
+  const { pathname } = useLocation();
   const [amenities, setAmenties] = useState({
     pool: true,
     gym: false,
@@ -47,6 +51,10 @@ const Main = ({ language }) => {
   const [pricingList, setPricingList] = useState([]);
   const [notes, setNotes] = useState('');
   const [msg, setMsg] = useState({ title: '', description: '', status: '' });
+
+  useEffect(() => {
+    console.log('Location changed:', location);
+  }, [location]);
 
   function resetData() {
     setAmenties({
@@ -203,12 +211,28 @@ const Main = ({ language }) => {
         {/* House Type */}
         <HouseButtons setType={setType} language={language} />
         {/* Location Component   */}
-        <LocationButtons
-          location={location}
-          setLocation={setLocation}
-          language={language}
-        />
+        {pathname === '/chalet' && (
+          <LocationButtons
+            location={location}
+            setLocation={setLocation}
+            language={language}
+          />
+        )}
 
+        {pathname === '/farm' && (
+          <FarmButtons
+            location={location}
+            setLocation={setLocation}
+            language={language}
+          />
+        )}
+        {pathname === '/house' && (
+          <RestButtons
+            location={location}
+            setLocation={setLocation}
+            language={language}
+          />
+        )}
         {/* Propety Name */}
         <PropetyName
           setPropetyName={setPropetyName}

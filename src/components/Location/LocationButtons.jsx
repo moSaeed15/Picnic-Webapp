@@ -31,7 +31,6 @@ const LocationButtons = ({
           latitude: city.latitude,
         };
       });
-
       setCities(cities);
       const filterCities1 = cities.filter(
         city => city.english !== 'Sabah Al Ahmad Sea City'

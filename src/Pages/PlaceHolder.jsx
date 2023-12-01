@@ -16,7 +16,7 @@ import {
 } from '@chakra-ui/react';
 import AmentiesBox from '../components/Amenties/AmentiesBox';
 import HouseButtons from '../components/HouseButtons';
-import LocationButtons from '../components/LocationButtons';
+import LocationButtons from '../components/Location/LocationButtons';
 import Notes from '../components/Notes/Notes';
 import PriceBox from '../components/Price/PriceBox';
 import PropetyName from '../components/PropetyName';
@@ -24,6 +24,8 @@ import UploadImages from '../components/UploadImages';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Cookies from 'universal-cookie';
+import FarmButtons from '../components/Location/FarmButtons';
+import RestButtons from '../components/Location/RestButtons';
 
 const PlaceHolder = ({ language }) => {
   const cookies = new Cookies();
@@ -124,13 +126,32 @@ const PlaceHolder = ({ language }) => {
         />
 
         {/* Location Component   */}
-        <LocationButtons
-          disabled={disabled}
-          arabic={location.state.location.address[0].name_l1}
-          address={location.state.location.address[0].name}
-          language={language}
-        />
+        {console.log(location.state)}
+        {location.state.type === 'chalet' && (
+          <LocationButtons
+            disabled={disabled}
+            arabic={location.state.location.address[0].name_l1}
+            address={location.state.location.address[0].name}
+            language={language}
+          />
+        )}
 
+        {location.state.type === 'farm' && (
+          <FarmButtons
+            disabled={disabled}
+            arabic={location.state.location.address[0].name_l1}
+            address={location.state.location.address[0].name}
+            language={language}
+          />
+        )}
+        {location.state.type === 'house' && (
+          <RestButtons
+            disabled={disabled}
+            arabic={location.state.location.address[0].name_l1}
+            address={location.state.location.address[0].name}
+            language={language}
+          />
+        )}
         {/* Propety Name */}
 
         <PropetyName
