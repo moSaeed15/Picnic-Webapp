@@ -10,8 +10,8 @@ This project is a React-based website designed for managing various properties l
     <img src="https://github.com/moSaeed15/Picnic-Webapp/assets/67608414/7206514f-f655-485d-9dbc-7a19c1662377" alt="Image 3">
 </div>
 <div style="display: flex; ">
-<img src="https://github.com/moSaeed15/Picnic-Webapp/assets/67608414/13b0e137-e508-4a56-8e09-0d143ea8e6f2" alt="Image 4"  style="width: 700px; margin: 5px;" >
-<img src="https://github.com/moSaeed15/Picnic-Webapp/assets/67608414/c959927a-8dd0-49bb-ba7c-d9c8da847a57" alt="Image 5"  style="width: 700px; margin: 5px;">
+<img src="https://github.com/moSaeed15/Picnic-Webapp/assets/67608414/13b0e137-e508-4a56-8e09-0d143ea8e6f2" alt="Image 4"  style="width: 400px; margin: 5px;" >
+<img src="https://github.com/moSaeed15/Picnic-Webapp/assets/67608414/c959927a-8dd0-49bb-ba7c-d9c8da847a57" alt="Image 5"  style="width: 400px; margin: 5px;">
 </div>
 
 
